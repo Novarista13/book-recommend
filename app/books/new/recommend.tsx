@@ -5,7 +5,7 @@ const Recommend = () => {
   return (
     <div className="basis-1/2">
       <p className="text-white text-[40px] font-extrabold md:mb-12">
-        Your <span className="text-[#F8FAE5]">Recommendation</span>
+        Your <span className="text-[#e3c39c]">Recommendation</span>
         <br />
         Helps Other to Read
       </p>

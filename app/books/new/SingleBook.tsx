@@ -5,7 +5,7 @@ import Image from "next/image";
 
 const SingleBook = ({ book }: any) => {
   return (
-    <div className="max-w-32 basis-32 bg-[#F8FAE5] border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <div className="basis-32 bg-[#F8FAE5] border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       <a href="#">
         <Image
           width={105}

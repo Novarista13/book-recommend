@@ -7,29 +7,29 @@ const SingleBook = ({ book }: any) => {
   return (
     <a
       href="#"
-      className="flex flex-col items-center bg-[#F8FAE5] border border-[#ffecd6] rounded-lg shadow md:flex-row  hover:bg-[#e5e9d2] dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 gap-x-8 p-4"
+      className="flex flex-col items-center bg-[#F8FAE5] border border-[#ffecd6] rounded-lg shadow md:flex-row  hover:bg-[#e5e9d2] dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 gap-x-8 p-3"
     >
       <Image
-        width={75}
-        height={99}
+        width={55}
+        height={60}
         src={bookImage}
-        className="basis-1/12 rounded-lg  object-cover w-[75px] rounded-t-lg h-96 md:h-auto md:w-[75px] md:rounded-none md:rounded-s-lg"
+        className="pl-2 basis-1/12 rounded-lg  object-cover rounded-t-lg md:h-auto md:rounded-none md:rounded-s-lg"
         alt="book image"
       />
       <div className="basis-3/12 flex flex-col justify-between leading-normal">
-        <p className="font-normal">Don’t Make Me Think</p>
-        <p className="text-gray-700 text-sm">Steve Krug, 2000</p>
-        <p className="text-gray-500 text-xs">Second Edition</p>
+        <p className=" mb-1">Don’t Make Me Think</p>
+        <p className="text-gray-700 text-[13px]">Steve Krug, 2000</p>
+        <p className="text-gray-500 text-[9px]">Second Edition</p>
       </div>
       <div className="basis-1/12">
         <span>4.5</span>
         <span className="text-xs text-gray-500">/5</span>
       </div>
       <div className="basis-3/12 flex flex-col justify-between leading-normal gap-y-2">
-        <p className="font-normal">Computer Science</p>
-        <p className="text-gray-700 text-sm">UX Design</p>
+        <p>Computer Science</p>
+        <p className="text-gray-700 text-[13px]">UX Design</p>
       </div>
-      <div className="basis-2/12">
+      <div className="basis-2/12 flex flex-col gap-y-1 text-[13px]">
         {["Hard Copy", "E - Book", "Audiobook"].map((f) => (
           <p key={f}>
             <svg
@@ -50,7 +50,9 @@ const SingleBook = ({ book }: any) => {
         ))}
       </div>
       <div className="basis-1/12">
-        <p className="bg-[#42BB4E] text-white p-1 rounded-lg">completed</p>
+        <p className="bg-[#42BB4E] text-white text-[13px] p-1 px-3 rounded-md">
+          completed
+        </p>
       </div>
       <div className="basis-1/12">
         <svg
@@ -68,7 +70,7 @@ const SingleBook = ({ book }: any) => {
         </svg>
       </div>
       <div className="basis-1/12">
-        <button className="text-[#76453B] border-2 border-[#76453B] hover:text-white hover:bg-[#76453B] focus:ring-2 focus:ring-[#B19470] p-1 rounded-lg">
+        <button className="text-[#76453B] text-[13px] border-2 border-[#76453B] hover:text-white hover:bg-[#76453B] focus:ring-2 focus:ring-[#B19470] p-1 px-3 rounded-md">
           Review
         </button>
       </div>

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
+import { any, z } from "zod";
 import prisma from "@/prisma/client";
 
 const createBookSchema = z.object({
@@ -7,9 +7,17 @@ const createBookSchema = z.object({
   description: z.string().min(1),
 });
 
+interface Books {
+  title: string;
+  description: string;
+  categoryId: number;
+  author: string;
+  categoryName: string;
+}
+
 export async function GET(request: NextRequest) {
-  const users = await prisma.book.findMany({ orderBy: { title: "asc" } });
-  return NextResponse.json(users);
+  const books = await prisma.book.findMany({ orderBy: { title: "asc" } });
+  return NextResponse.json(books);
 }
 
 export async function POST(request: NextRequest) {
@@ -19,7 +27,13 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(validation.error.errors, { status: 400 });
 
   const newBook = await prisma.book.create({
-    data: { title: body.title, description: body.description },
+    data: <Books>{
+      author: body.author,
+      categoryId: body.category_id,
+      categoryName: body.category_name,
+      title: body.title,
+      description: body.description,
+    },
   });
 
   return NextResponse.json(newBook, { status: 201 });

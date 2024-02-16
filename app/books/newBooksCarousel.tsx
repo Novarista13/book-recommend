@@ -1,43 +1,82 @@
 "use client";
 
-import { Carousel } from "flowbite-react";
+import bookImage from "../../public/book.jpg";
 import Image from "next/image";
 
 const NewBooksCarousel = () => {
   return (
-    <div className="h-[11.5rem]">
-      <Carousel slide={true}>
-        <Image
-          width={50}
-          height={30}
-          src="https://flowbite.com/docs/images/carousel/carousel-1.svg"
-          alt="..."
-        />
-        <Image
-          width={30}
-          height={30}
-          src="https://flowbite.com/docs/images/carousel/carousel-2.svg"
-          alt="..."
-        />
-        <Image
-          width={30}
-          height={30}
-          src="https://flowbite.com/docs/images/carousel/carousel-3.svg"
-          alt="..."
-        />
-        <Image
-          width={30}
-          height={30}
-          src="https://flowbite.com/docs/images/carousel/carousel-4.svg"
-          alt="..."
-        />
-        <Image
-          width={30}
-          height={30}
-          src="https://flowbite.com/docs/images/carousel/carousel-5.svg"
-          alt="..."
-        />
-      </Carousel>
+    <div className="rounded-lg border-[3px] border-[#43766C]">
+      <div className="slider-wrapper h-[10.3rem] z-[-1]">
+        <h3>New Arrivals</h3>
+        <div className="floating-books-slider flex flex-row py-4 gap-x-8 ">
+          <a
+            href="#"
+            className="floating-books ml-6 py-2 h-[130px] rounded-md border-[1.5px] border-[#F8FAE5] shadow-xl"
+          >
+            <Image
+              width={80}
+              src={bookImage}
+              className="rounded-lg max-w-[80px] mx-2.5"
+              alt="book image"
+            />
+          </a>
+          <a
+            href="#"
+            className="floating-books py-2 h-[130px] rounded-md border-[1.5px] border-[#F8FAE5] shadow-xl"
+          >
+            <Image
+              width={80}
+              src={bookImage}
+              className="rounded-lg max-w-[80px]  mx-2.5"
+              alt="book image"
+            />
+          </a>
+          <a
+            href="#"
+            className="floating-books py-2 h-[130px] rounded-md border-[1.5px] border-[#F8FAE5] shadow-xl"
+          >
+            <Image
+              width={80}
+              src={bookImage}
+              className="rounded-lg max-w-[80px]  mx-2.5"
+              alt="book image"
+            />
+          </a>
+          <a
+            href="#"
+            className="floating-books py-2 h-[130px] rounded-md border-[1.5px] border-[#F8FAE5] shadow-xl"
+          >
+            <Image
+              width={80}
+              src={bookImage}
+              className="rounded-lg max-w-[80px] mx-2.5"
+              alt="book image"
+            />
+          </a>
+          <a
+            href="#"
+            className="floating-books py-2 h-[130px] rounded-md border-[1.5px] border-[#F8FAE5] shadow-xl"
+          >
+            <Image
+              width={80}
+              src={bookImage}
+              className="rounded-lg max-w-[80px]  mx-2.5"
+              alt="book image"
+            />
+          </a>
+          <a
+            href="#"
+            className="floating-books py-2 mr-6  h-[130px] rounded-md border-[1.5px] border-[#F8FAE5] shadow-xl"
+          >
+            <Image
+              width={80}
+              src={bookImage}
+              className="rounded-lg max-w-[80px] mx-2.5"
+              alt="book image"
+            />
+          </a>
+        </div>
+      </div>
     </div>
   );
 };

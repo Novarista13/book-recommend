@@ -5,7 +5,7 @@ import NewBooksCarousel from "./newBooksCarousel";
 
 const page = () => {
   return (
-    <div className="grid grid-cols-5 gap-4">
+    <div className="grid grid-cols-5 gap-4 md:ml-[24px] pt-[24px]">
       <div className="col-span-2 row-span-2">
         <Quote />
       </div>

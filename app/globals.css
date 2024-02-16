@@ -21,3 +21,53 @@ select:not([size]) {
   background-size: auto;
   background-position: right 1.5rem center;
 }
+
+.pdf-single-page {
+  background-color: transparent !important;
+}
+
+
+/* new book slider section */
+
+.slider-wrapper {
+  width: 100%;
+  position: relative;
+  border-image: linear-gradient(#76453b, #ad8b69, #f8fae5) 30;
+  border-width: 1.5px;
+  border-left-width: 40px;
+  border-style: solid;
+  display: inline-block;
+}
+
+.slider-wrapper h3 {
+  font-size: 16px;
+  color: white;
+  letter-spacing: 2px;
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  margin-left: -32px;
+  transform-origin: 0 0;
+  transform: rotate(270deg);
+}
+
+.floating-books-slider {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.floating-books {
+  position: relative;
+  animation: bannermove 10s linear infinite alternate;
+}
+
+@keyframes bannermove {
+  from {
+    left: 0px;
+  }
+  to {
+    left: -200px;
+  }
+}

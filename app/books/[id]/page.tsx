@@ -1,36 +1,33 @@
 "use client";
-import axios from "axios";
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import SingleBook from "../SingleBook";
+
+import React, { useState, useRef } from "react";
+
+import BookCover from "./BookCover";
+import BuyBook from "./BuyBook";
+import AboutAuthor from "./AboutAuthor";
+import BookNav from "./BookNav";
+import AboutBook from "./AboutBook";
 
 const Books = ({ params }: { params: { id: string } }) => {
-  const [book, setBook] = useState([]);
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        let res = await axios.get(`/api/books/${params.id}`);
-        let data = res.data;
-        setBook(data);
-        console.log(data);
-      } catch (error) {
-        setError("Fetching Data not successfull!");
-      }
-    }
-    fetchData();
-  }, [params.id]);
-
   return (
-    <div>
-      {/* {error && (
-        <Callout.Root color="red" className="mb-5">
-          <Callout.Text>{error}</Callout.Text>
-        </Callout.Root>
-      )} */}
-      Books
-      <SingleBook book={book} />
+    <div className="overflow-y-auto m-9 mr-1">
+      <div className="grid grid-cols-9 grid-rows-7 gap-5">
+        <div className="col-span-2 row-span-3">
+          <BookCover />
+        </div>
+        <div className="col-span-4 row-span-3 col-start-3">
+          <AboutBook />
+        </div>
+        <div className="col-span-3 row-span-3 col-start-7">
+          <AboutAuthor />
+        </div>
+        <div className="col-span-2 row-span-3 row-start-4">
+          <BuyBook />
+        </div>
+        <div className="col-span-7 row-span-3 col-start-3 row-start-4">
+          <BookNav />
+        </div>
+      </div>
     </div>
   );
 };

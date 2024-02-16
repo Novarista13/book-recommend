@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter, Nunito_Sans, Roboto_Slab } from "next/font/google";
 import Navbar from "./Navbar";
+import { usePathname } from "next/navigation";
 
 const font = Roboto_Slab({ subsets: ["latin"] });
 

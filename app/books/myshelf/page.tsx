@@ -1,9 +1,16 @@
-import React from 'react'
+import React from "react";
+import Books from "./books";
+import NavLine from "./NavLine";
+import NotesPage from "./NotesPage";
 
 const page = () => {
   return (
-    <div>page</div>
-  )
-}
+    <div className="md:ml-[24px] ">
+      <NavLine />
+      <Books />
+      <NotesPage />
+    </div>
+  );
+};
 
-export default page
+export default page;

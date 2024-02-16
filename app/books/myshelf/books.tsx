@@ -24,18 +24,10 @@ const Books = () => {
 
   return (
     <div className="my-5 text-[#F8FAE5]">
-      <p className=" text-2xl font-extrabold">Good Morning</p>
-      <h1 className="my-3">Recommended for you</h1>
-      <div className="flex flex-row gap-x-8 overflow-x-scroll flex-nowrap">
+      <div className="flex flex-row gap-6  flex-wrap">
         {/* {books.map((b) => (
         <SingleBook key={b} book={b} />
       ))} */}
-        <SingleBook />
-        <SingleBook />
-        <SingleBook />
-        <SingleBook />
-        <SingleBook />
-        <SingleBook />
         <SingleBook />
         <SingleBook />
         <SingleBook />
