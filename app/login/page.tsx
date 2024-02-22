@@ -10,8 +10,6 @@ type Props = {
 };
 
 const page = async (props: Props) => {
-  
-
   return (
     <div className="grid place-content-center w-full">
       <div className="min-w-[400px] ml-7 mt-5 bg-[#F8FAE5] border border-gray-200 rounded-lg shadow mx-auto">

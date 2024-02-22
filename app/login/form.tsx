@@ -48,7 +48,7 @@ const Form = ({ callbackUrl }: Props) => {
       setError("Something went wrong!");
       router.push(callbackUrl ?? "http://localhost:3000/login");
     } else {
-      router.push("/");
+      router.push("/books");
     }
   };
 

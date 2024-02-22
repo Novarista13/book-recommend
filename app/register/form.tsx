@@ -154,7 +154,7 @@ const Form = () => {
           type="submit"
           className="text-[#F8FAE5] bg-[#76453B] hover:bg-[#F8FAE5] hover:text-[#76453B] inline hover:ring-2 hover:ring-[#B19470] focus:ring-2 focus:ring-[#B19470] font-medium rounded-lg text-sm p-2 me-2 mb-2 focus:outline-none"
         >
-          Login
+          Register
         </button>
       </form>
     </div>
