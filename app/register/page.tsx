@@ -10,7 +10,13 @@ const page = () => {
       <div className="min-w-[400px] ml-7 mt-5 bg-[#F8FAE5] border border-gray-200 rounded-lg shadow">
         <div className="max-w-[300px] mx-auto my-7">
           <a href="#" className="flex items-center justify-center mr-4">
-            <Image src={books} className="h-15" alt="book logo" />
+            <Image
+              src={books}
+              priority={true}
+              style={{ width: "auto" }}
+              className="h-15"
+              alt="book logo"
+            />
             <span className="self-center text-2xl ml-2 font-semibold whitespace-nowrap dark:text-white">
               AetherReads
             </span>

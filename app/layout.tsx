@@ -1,8 +1,8 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter, Nunito_Sans, Roboto_Slab } from "next/font/google";
+import { Roboto_Slab } from "next/font/google";
 import Navbar from "./Navbar";
-import { usePathname } from "next/navigation";
+import AuthProvider from "./api/auth/[...nextauth]/Provider";
 
 const font = Roboto_Slab({ subsets: ["latin"] });
 
@@ -19,7 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={font.className}>
-        <Navbar>{children}</Navbar>
+        <AuthProvider>
+          <Navbar>{children}</Navbar>
+        </AuthProvider>
       </body>
     </html>
   );

@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { any, z } from "zod";
 import prisma from "@/prisma/client";
+import { getServerSession } from "next-auth";
+import authOptions from "../auth/[...nextauth]/authOptions";
 
 const createBookSchema = z.object({
   title: z.string().min(1).max(255),
@@ -16,6 +18,11 @@ interface Books {
 }
 
 export async function GET(request: NextRequest) {
+  const session = await getServerSession(authOptions);
+
+  if (!session)
+    return NextResponse.json({ message: "Unauthenticated" }, { status: 401 });
+
   const books = await prisma.book.findMany({ orderBy: { title: "asc" } });
   return NextResponse.json(books);
 }
