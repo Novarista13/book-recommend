@@ -5,6 +5,7 @@ import "easymde/dist/easymde.min.css";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import MultiSelect from "./multiSelect";
 
 interface BookForm {
   title: string;
@@ -58,13 +59,7 @@ const Form = () => {
           </select>
         </div>
         <div className="col-span-2 row-start-2">
-          <input
-            type="text"
-            id="topbar-search"
-            className="accent-[#76453B] placeholder-[#76453B] text-[#76453B] bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-[#76453B] focus:border-[#76453B] block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-            placeholder="Author name"
-            {...register("title")}
-          />
+          <MultiSelect />
         </div>
         <div className="col-start-3 row-start-2">
           <select className="accent-[#76453B] placeholder-[#76453B] text-[#76453B] bg-gray-50 border border-gray-300 text-sm rounded-full focus:ring-[#76453B] focus:border-[#76453B] block w-full p-2 text-center">

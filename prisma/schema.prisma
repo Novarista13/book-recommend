@@ -2,29 +2,13 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
   binaryTargets = ["native", "debian-openssl-3.0.x"]
 }
 
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
-}
-
-model Book {
-  id           Int      @id @default(autoincrement())
-  title        String   @db.VarChar(255)
-  author       String   @db.VarChar(255)
-  description  String   @db.Text
-  rating       Rating   @default(NORMAL)
-  categoryName String
-  categoryId   Int
-  category     Category @relation(fields: [categoryId, categoryName], references: [id, name])
-  lang         Lang     @default(ENGLISH)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  assignedToUserId String?  @db.VarChar(255)
-  assignedToUser   User?    @relation(fields: [assignedToUserId], references: [id])
 }
 
 model Account {
@@ -53,19 +37,25 @@ model Session {
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
+
 model User {
-  id             String    @id @default(cuid())
-  username       String?    @unique
-  name           String?
-  password       String?
-  email          String?   @unique
-  emailVerified   DateTime?
-  image          String?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  accounts       Account[]
-  sessions       Session[]
-  recommendedBooks Book[]
+  id               String    @id @default(cuid())
+  username         String?   @unique
+  name             String?
+  password         String?
+  email            String?   @unique
+  emailVerified    DateTime?
+  image            String?
+  bio              String?   @db.Text
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  accounts         Account[]
+  sessions         Session[]
+  recommendedBooks Books[]
+  Reviews          Reviews[]
+  Lists            Lists[]
+
+  @@unique([id])
 }
 
 model VerificationToken {
@@ -76,26 +66,100 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-model Category {
-  id   Int    @id @default(autoincrement())
-  name String @db.VarChar(255)
-  createdAt    DateTime @default(now())
-  Book Book[]
+model Books {
+  id          Int    @id @default(autoincrement())
+  title       String @db.VarChar(255)
+  description String @db.Text
+  rating      Rating @default(Normal)
+
+  authorId         Int
+  author           Authors        @relation(fields: [authorId], references: [id])
+  lang             Lang           @default(English)
+  availability     Availability?  @default(EBook)
+  status           Status         @default(Ongoing)
+  cover            String?        @db.VarChar(255)
+  ebook            String?        @db.VarChar(255)
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  assignedToUserId String?        @db.VarChar(255)
+  assignedToUser   User?          @relation(fields: [assignedToUserId], references: [id])
+  Reviews          Reviews[]
+  Lists            Lists[]
+  CategoryList     CategoryList[]
+
+  @@unique([id])
+}
+
+model CategoryList {
+  book       Books      @relation(fields: [bookId], references: [id])
+  bookId     Int
+  categoryId Int
+  category   Categories @relation(fields: [categoryId], references: [id])
+
+  @@id([bookId, categoryId])
+}
+
+model Lists {
+  id       Int    @id @default(autoincrement())
+  user     User   @relation(fields: [userId], references: [id])
+  book     Books? @relation(fields: [bookId], references: [id])
+  userId   String
+  bookId   Int?
+  listType String // plan_to_read, currently_reading, finished_reading
+}
+
+model Reviews {
+  id        Int      @id @default(autoincrement())
+  content   String   @db.Text
+  bookId    Int
+  book      Books    @relation(fields: [bookId], references: [id])
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Categories {
+  id           Int            @id @default(autoincrement())
+  name         String         @db.VarChar(255)
+  createdAt    DateTime       @default(now())
+  CategoryList CategoryList[]
+
+  @@unique([id, name])
+}
+
+model Authors {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(255)
+  about     String?  @db.Text
+  createdAt DateTime @default(now())
+  Books     Books[]
 
   @@unique([id, name])
 }
 
 enum Rating {
-  BAD
-  NORMAL
-  GOOD
-  EXCELLENT
+  Bad
+  Normal
+  Good
+  Excellent
+}
+
+enum Status {
+  Ongoing
+  Completed
+}
+
+enum Availability {
+  HardCopy
+  EBook
+  Audiobook
 }
 
 enum Lang {
-  ENGLISH
-  BURMESE
-  KOREAN
-  CHINESE
-  JPN
+  English
+  Burmese
+  Korean
+  Chinese
+  Japanese
 }

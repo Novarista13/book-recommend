@@ -16,7 +16,7 @@ export default function Home() {
       const data = new FormData();
       data.set("file", file);
       console.log(data);
-      const res = await axios.post("/api/upload", data);
+      const res = await axios.post("/api/photo-upload", data);
       if (res.statusText !== "OK") throw new Error("upload uncessfull");
     } catch (e: any) {
       console.error(e);

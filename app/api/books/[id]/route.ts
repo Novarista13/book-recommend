@@ -6,7 +6,7 @@ export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  const users = await prisma.book.findUnique({
+  const users = await prisma.books.findUnique({
     where: { id: parseInt(params.id) },
   });
 
@@ -17,26 +17,33 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  // const session = await getServerSession(authOptions);
-  // if (!session) return NextResponse.json({}, { status: 401 });
 
-  const book = await prisma.book.findUnique({
+  const book = await prisma.books.findUnique({
     where: { id: parseInt(params.id) },
   });
 
   if (!book)
     return NextResponse.json({ error: "Invalid book" }, { status: 404 });
 
-  await prisma.book.delete({
+  await prisma.books.delete({
     where: { id: book.id },
   });
 
   return NextResponse.json({});
 }
 
+
 const createBookSchema = z.object({
   title: z.string().min(1).max(255),
   description: z.string().min(1),
+  rating: z.string(),
+  authorId: z.number().min(1),
+  lang: z.string(),
+  availability: z.string(),
+  status: z.string(),
+  cover: z.string().optional(),
+  ebook: z.string().optional(),
+  assignedToUserId: z.string().optional(),
 });
 
 export async function PUT(
@@ -48,20 +55,39 @@ export async function PUT(
   if (!validation.success)
     return NextResponse.json(validation.error.errors, { status: 400 });
 
-  const { title, description } = body;
+  const {
+    title,
+    description,
+    rating,
+    authorId,
+    lang,
+    availability,
+    status,
+    cover,
+    ebook,
+    assignedToUserId,
+  } = body;
 
-  const book = await prisma.book.findUnique({
+  const book = await prisma.books.findUnique({
     where: { id: parseInt(params.id) },
   });
 
   if (!book)
     return NextResponse.json({ error: "Invalid book" }, { status: 404 });
 
-  const updatedBook = await prisma.book.update({
+  const updatedBook = await prisma.books.update({
     where: { id: book.id },
     data: {
       title,
       description,
+      rating,
+      authorId,
+      lang,
+      availability,
+      status,
+      cover,
+      ebook,
+      assignedToUserId,
     },
   });
 
