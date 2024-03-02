@@ -2,11 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import prisma from "@/prisma/client";
 
-const createCategorySchema = z.object({
-  bookId: z.number(),
-  categoryId: z.number(),
-});
-
 export async function GET(request: NextRequest) {
   const bookId = request.nextUrl.searchParams.get("bookId");
 
@@ -34,19 +29,38 @@ export async function GET(request: NextRequest) {
   return NextResponse.json({ categoryArray });
 }
 
+const createCategorySchema = z.object({
+  bookId: z.number(),
+  categoryIdList: z.array(z.number()),
+});
+
 export async function POST(request: NextRequest) {
   const body = await request.json();
   const validation = createCategorySchema.safeParse(body);
   if (!validation.success)
     return NextResponse.json(validation.error.errors, { status: 400 });
 
-  const newCategory = await prisma.categoryList.create({
-    data: {
-      bookId: body.bookId,
-      categoryId: body.categoryId,
-    },
+  const { bookId, categoryIdList } = body;
+
+  // let createdCategoryArray: { bookId: number; categoryId: number }[] = [];
+
+  // await categoryIdList.forEach(async (id: number) => {
+  //   const category = await prisma.categoryList.create({
+  //     data: {
+  //       bookId,
+  //       categoryId: id,
+  //     },
+  //   });
+  //   createdCategoryArray.push(category);
+  // });
+  
+
+  const createdCategoryList = await prisma.categoryList.createMany({
+    data: categoryIdList.map((c: number) => ({ bookId, categoryId: c })),
+    skipDuplicates: true,
   });
-  return NextResponse.json(newCategory, { status: 201 });
+
+  return NextResponse.json(createdCategoryList, { status: 201 });
 }
 
 export async function DELETE(request: NextRequest) {

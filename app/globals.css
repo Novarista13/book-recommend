@@ -26,7 +26,6 @@ select:not([size]) {
   background-color: transparent !important;
 }
 
-
 /* new book slider section */
 
 .slider-wrapper {
@@ -70,4 +69,14 @@ select:not([size]) {
   to {
     left: -200px;
   }
+}
+
+[type="text"]:focus {
+  --tw-ring-color: transparent;
+}
+
+/* multi select customize */
+
+.css-1xc3v61-indicatorContainer {
+  color: #76453b !important;
 }

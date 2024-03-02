@@ -67,15 +67,14 @@ model VerificationToken {
 }
 
 model Books {
-  id          Int    @id @default(autoincrement())
-  title       String @db.VarChar(255)
-  description String @db.Text
-  rating      Rating @default(Normal)
-
+  id               Int            @id @default(autoincrement())
+  title            String         @db.VarChar(255)
+  description      String         @db.Text
+  rating           String
   authorId         Int
   author           Authors        @relation(fields: [authorId], references: [id])
   lang             Lang           @default(English)
-  availability     Availability?  @default(EBook)
+  availability     Json?          @default("[]")
   status           Status         @default(Ongoing)
   cover            String?        @db.VarChar(255)
   ebook            String?        @db.VarChar(255)
@@ -106,6 +105,8 @@ model Lists {
   userId   String
   bookId   Int?
   listType String // plan_to_read, currently_reading, finished_reading
+
+  @@unique([userId, bookId, listType], name: "UniqueBookPerUserAndListType")
 }
 
 model Reviews {
@@ -138,22 +139,9 @@ model Authors {
   @@unique([id, name])
 }
 
-enum Rating {
-  Bad
-  Normal
-  Good
-  Excellent
-}
-
 enum Status {
   Ongoing
   Completed
-}
-
-enum Availability {
-  HardCopy
-  EBook
-  Audiobook
 }
 
 enum Lang {

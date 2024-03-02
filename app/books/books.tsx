@@ -8,19 +8,19 @@ const Books = () => {
   const [books, setBooks] = useState([]);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        let res = await axios.get("/api/books");
-        let data = res.data;
-        setBooks(data);
-        console.log(data);
-      } catch (error) {
-        setError("Fetching Data not successfull!");
-      }
-    }
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     try {
+  //       let res = await axios.get("/api/books");
+  //       let data = res.data;
+  //       setBooks(data);
+  //       console.log(data);
+  //     } catch (error) {
+  //       setError("Fetching Data not successfull!");
+  //     }
+  //   }
+  //   fetchData();
+  // }, []);
 
   return (
     <div className="my-5 text-[#F8FAE5]">
