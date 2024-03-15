@@ -1,135 +1,116 @@
 import React from "react";
-import { Dropdown } from "flowbite-react";
+import { Dropdown, Rating } from "flowbite-react";
+import check from "../../../public/check.svg";
+import cross from "../../../public/cross.svg";
+import Image from "next/image";
 
-const AboutBook = () => {
+const AboutBook = ({
+  book,
+}: {
+  book: {
+    title: string;
+    rating: string;
+    availability: string;
+    status: string;
+    author: { name: string };
+  };
+}) => {
   return (
-    <div className="w-full ">
+    <div className="w-auto">
       <div className="max-w-[380px] flex flex-col gap-y-5">
         <div>
-          <p className="text-3xl text-white mb-1">Don’t Make Me Think</p>
-          <p className="text-gray-100 text-sm mb-2">By Steve Krug, 2000</p>
-          <p className="text-gray-300 text-xs">Second Edition</p>
+          <p className="text-3xl text-white mb-1">{book?.title}</p>
+          <p className="text-gray-100 text-sm">By {book?.author?.name}</p>
         </div>
-        <div className="flex flex-row text-xs gap-x-3.5 text-white">
-          <div>
+        <div className="flex flex-row text-[12.5px] gap-x-3 text-white">
+          <div className="flex items-center">
             <svg
-              width="14"
-              height="14"
-              viewBox="0 0 14 14"
-              fill="none"
-              className="inline"
+              className="w-3.5 h-3.5 text-yellow-300"
+              aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 22 20"
             >
-              <path
-                d="M7 0L9.37943 4.05683L14 5.05044L10.85 8.55131L11.3262 13.2222L7 11.3291L2.67376 13.2222L3.15 8.55131L0 5.05044L4.62057 4.05683L7 0Z"
-                fill="#FFCB45"
-              />
+              <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
             </svg>
             <svg
-              width="14"
-              height="14"
-              viewBox="0 0 14 14"
-              fill="none"
-              className="inline"
+              className="w-3.5 h-3.5 text-yellow-300 ms-0.5"
+              aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 22 20"
             >
-              <path
-                d="M7 0L9.37943 4.05683L14 5.05044L10.85 8.55131L11.3262 13.2222L7 11.3291L2.67376 13.2222L3.15 8.55131L0 5.05044L4.62057 4.05683L7 0Z"
-                fill="#FFCB45"
-              />
+              <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
             </svg>
             <svg
-              width="14"
-              height="14"
-              viewBox="0 0 14 14"
-              fill="none"
-              className="inline"
+              className="w-3.5 h-3.5 text-yellow-300 ms-0.5"
+              aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 22 20"
             >
-              <path
-                d="M7 0L9.37943 4.05683L14 5.05044L10.85 8.55131L11.3262 13.2222L7 11.3291L2.67376 13.2222L3.15 8.55131L0 5.05044L4.62057 4.05683L7 0Z"
-                fill="#FFCB45"
-              />
+              <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
             </svg>
             <svg
-              width="14"
-              height="14"
-              viewBox="0 0 14 14"
-              fill="none"
-              className="inline"
+              className="w-3.5 h-3.5 text-yellow-300 ms-0.5"
+              aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 22 20"
             >
-              <path
-                d="M7 0L9.37943 4.05683L14 5.05044L10.85 8.55131L11.3262 13.2222L7 11.3291L2.67376 13.2222L3.15 8.55131L0 5.05044L4.62057 4.05683L7 0Z"
-                fill="#FFCB45"
-              />
+              <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
             </svg>
             <svg
-              width="14"
-              height="14"
-              viewBox="0 0 14 14"
-              fill="none"
-              className="inline"
+              className="w-3.5 h-3.5 text-gray-300 ms-0.5 me-1"
+              aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 22 20"
             >
-              <path
-                d="M7 0L9.37943 4.05683L14 5.05044L10.85 8.55131L11.3262 13.2222L7 11.3291L2.67376 13.2222L3.15 8.55131L0 5.05044L4.62057 4.05683L7 0Z"
-                fill="#FFCB45"
-              />
+              <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
             </svg>
+            <p>{book?.rating[0]}.0 Ratings</p>
           </div>
-          <p>5.0 Ratings</p>
+
           <p>25 Currently reading</p>
           <p>119 Have read</p>
         </div>
-        <div className="text-white flex flex-row gap-x-10 items-center">
+        <div className="text-white flex flex-row gap-x-10 items-start">
           <div className="flex flex-col gap-y-1">
-            <p className="text-xs font-semibold">Availability</p>
-            {["Hard Copy", "E - Book", "Audio book"].map((f) => (
-              <p key={f} className="text-sm">
-                <svg
-                  width="15"
-                  height="15"
-                  viewBox="0 0 15 15"
-                  className="inline mr-1"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M7.5 0C3.35697 0 0 3.35697 0 7.5C0 11.643 3.35697 15 7.5 15C11.643 15 15 11.643 15 7.5C15 3.35697 11.643 0 7.5 0ZM6.34255 10.1575C6.25601 10.244 6.13341 10.3161 6.02524 10.3161C5.91707 10.3161 5.79447 10.2404 5.70433 10.1538L3.6851 8.13462L4.32692 7.49279L6.02885 9.19471L10.5288 4.66226L11.1599 5.3149L6.34255 10.1575Z"
-                    fill="#42BB4E"
+            <p className="text-[14px]">Availability</p>
+            {[
+              { label: "Hard Copy", value: "HardCopy" },
+              { label: "E-Book", value: "EBook" },
+              { label: "Audio Book", value: "Audiobook" },
+            ].map((f) => (
+              <p key={f.value} className="text-[13px]">
+                {book?.availability.includes(f.value) ? (
+                  <Image
+                    src={check}
+                    className="inline w-3.5 me-1"
+                    alt="availability"
                   />
-                </svg>
-                {f}
+                ) : (
+                  <Image
+                    src={cross}
+                    className="inline w-3.5 me-1"
+                    alt="availability"
+                  />
+                )}
+                {f.label}
               </p>
             ))}
           </div>
-          <div className="flex flex-col gap-y-3">
-            <p className="text-xs font-semibold">Status</p>{" "}
-            <p className="bg-[#42BB4E] text-white text-xs p-1 px-2 rounded-md">
-              completed
+          <div className="flex flex-col gap-y-4 h-full">
+            <p className="text-[14px]">Status</p>
+            <p className="bg-[#42BB4E] text-white text-[13px] p-1 pt-0.5 px-2 rounded-md">
+              {book?.status}
             </p>
-            <div className="flex flex-row items-center">
-              <svg
-                width="20"
-                height="21"
-                viewBox="0 0 20 21"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M9.69008 19.433L9.69288 19.4342C9.89 19.52 10 19.5 10 19.5C10 19.5 10.11 19.52 10.3079 19.4339L10.3099 19.433L10.3157 19.4304L10.3338 19.422C10.3488 19.415 10.3697 19.4052 10.3959 19.3926C10.4484 19.3673 10.5225 19.3306 10.6153 19.2822C10.8008 19.1855 11.0612 19.0419 11.3717 18.8495C11.9912 18.4655 12.8174 17.8826 13.6455 17.0844C15.3022 15.4876 17 12.9925 17 9.5C17 5.63401 13.866 2.5 10 2.5C6.13401 2.5 3 5.63401 3 9.5C3 12.9925 4.69783 15.4876 6.35452 17.0844C7.18264 17.8826 8.00877 18.4655 8.62834 18.8495C8.93879 19.0419 9.19922 19.1855 9.38467 19.2822C9.47745 19.3306 9.55163 19.3673 9.60409 19.3926C9.63033 19.4052 9.65116 19.415 9.66619 19.422L9.68435 19.4304L9.69008 19.433ZM10 11.75C11.2426 11.75 12.25 10.7426 12.25 9.5C12.25 8.25736 11.2426 7.25 10 7.25C8.75736 7.25 7.75 8.25736 7.75 9.5C7.75 10.7426 8.75736 11.75 10 11.75Z"
-                  fill="#F76B56"
-                />
-              </svg>
-              <p className="text-sm">CS A-15</p>
-            </div>
           </div>
-          <div>
+          <div className="self-center">
             <Dropdown
-              label=""
+              label="add to list"
+              className=" bg-[#F8FAE5]"
               renderTrigger={() => (
                 <div className="group">
                   <button className="text-[#76453B] bg-[#F8FAE5] hover:bg-[#76453B] hover:text-[#F8FAE5] focus:ring-2 focus:ring-[#B19470] font-medium rounded-md text-sm px-3 py-2  me-2 mb-2  focus:outline-none ">
@@ -148,8 +129,19 @@ const AboutBook = () => {
                 </div>
               )}
             >
-              {["single", "double", "scroll"].map((v) => (
-                <Dropdown.Item key={v}>
+              {[
+                "Explorations in Ethereal Realms: A Journey Through Magical Realism",
+                "Whispers of the Cosmos: Mystical Tales from Beyond",
+                "Echoes of Ancient Wisdom: Unraveling the Threads of History",
+                "Luminous Landscapes: A Visual Odyssey Through Nature's Wonders",
+                "Wanderlust Chronicles: Adventures Across Continents",
+                "Enchanted Encounters: Stories of Serendipity and Fate",
+                "Sonnets of the Soul: Poetry for the Heart and Mind",
+              ].map((v) => (
+                <Dropdown.Item
+                  className="focus:bg-[#76453B] focus:text-[#F8FAE5] "
+                  key={v}
+                >
                   <span className="px-3 capitalize">{v}</span>
                 </Dropdown.Item>
               ))}
@@ -157,12 +149,10 @@ const AboutBook = () => {
           </div>
         </div>
         <div className="flex flex-row gap-x-6">
-          <button
-            type="button"
-            className="text-[#76453B] w-full bg-[#F8FAE5] hover:bg-[#76453B] hover:text-[#F8FAE5] focus:ring-2 focus:ring-[#B19470] font-medium rounded-lg  px-5 py-2.5 me-2  focus:outline-none"
-          >
-            BORROW
-          </button>
+          <div className="w-full  border border-[#F8FAE5] rounded-lg shadow  text-center py-2 p-4 flex flex-row items-center gap-x-3">
+            <p className="text-[14px] text-[#F8FAE5]">Language: </p>
+            <p className="text-[15px] text-white font-medium">English</p>
+          </div>
           <button
             type="button"
             className="bg-[#42BB4E] w-full text-white hover:bg-[#2f9b3a] focus:ring-2 focus:ring-white font-medium rounded-lg px-5 py-0 me-2 focus:outline-none flex flex-row gap-x-2 items-center"

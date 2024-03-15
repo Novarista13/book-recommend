@@ -34,29 +34,29 @@ const createCategorySchema = z.object({
   name: z.string().min(1).max(255),
 });
 
-export async function PUT(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
-  const body = await request.json();
+// export async function PUT(
+//   request: NextRequest,
+//   { params }: { params: { id: string } }
+// ) {
+//   const body = await request.json();
 
-  const validation = createCategorySchema.safeParse(body);
-  if (!validation.success)
-    return NextResponse.json(validation.error.errors, { status: 400 });
+//   const validation = createCategorySchema.safeParse(body);
+//   if (!validation.success)
+//     return NextResponse.json(validation.error.errors, { status: 400 });
 
-  const category = await prisma.categories.findUnique({
-    where: { id: parseInt(params.id) },
-  });
+//   const category = await prisma.categories.findUnique({
+//     where: { id: parseInt(params.id) },
+//   });
 
-  if (!category)
-    return NextResponse.json({ error: "Invalid author" }, { status: 404 });
+//   if (!category)
+//     return NextResponse.json({ error: "Invalid author" }, { status: 404 });
 
-  const updatedCategory = await prisma.authors.update({
-    where: { id: category.id },
-    data: {
-      name: body.name,
-    },
-  });
+//   const updatedCategory = await prisma.authors.update({
+//     where: { id: category.id },
+//     data: {
+//       name: body.name,
+//     },
+//   });
 
-  return NextResponse.json(updatedCategory, { status: 200 });
-}
+//   return NextResponse.json(updatedCategory, { status: 200 });
+// }

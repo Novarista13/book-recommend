@@ -44,7 +44,6 @@ const Form = ({ callbackUrl }: Props) => {
     });
 
     if (res?.error) {
-      console.log(res.error);
       setError("Something went wrong!");
       router.push(callbackUrl ?? "http://localhost:3000/login");
     } else {

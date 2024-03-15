@@ -1,15 +1,15 @@
 "use client";
 
-import bookImage from "../../../public/book.jpg";
 import Image from "next/image";
 
-const BookCover = ({ book }: any) => {
+const BookCover = ({ img }: any) => {
   return (
     <div className="w-[190px] min-w-[190px]  bg-[#F8FAE5] border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       <a href="#">
         <Image
           width={145}
-          src={bookImage}
+          height={190}
+          src={`/${img ?? "sample-cover.jpg"}`}
           className="mx-auto my-4"
           alt="book image"
         />

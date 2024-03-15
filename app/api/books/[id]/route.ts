@@ -6,18 +6,25 @@ export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  const users = await prisma.books.findUnique({
+  const books = await prisma.books.findUnique({
     where: { id: parseInt(params.id) },
+    include: {
+      author: {
+        select: {
+          name: true,
+          about: true,
+        },
+      },
+    },
   });
 
-  return NextResponse.json(users);
+  return NextResponse.json(books);
 }
 
 export async function DELETE(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
-
   const book = await prisma.books.findUnique({
     where: { id: parseInt(params.id) },
   });
@@ -31,7 +38,6 @@ export async function DELETE(
 
   return NextResponse.json({});
 }
-
 
 const createBookSchema = z.object({
   title: z.string().min(1).max(255),

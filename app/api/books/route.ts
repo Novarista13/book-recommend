@@ -10,6 +10,9 @@ const createBookSchema = z.object({
   lang: z.string(),
   availability: z.string(),
   status: z.string(),
+  publishedYear: z.number().positive().optional(),
+  parts: z.number().positive().optional(),
+  publishedPlatform: z.string().max(255).optional(),
   cover: z.string().optional(),
   ebook: z.string().optional(),
   assignedToUserId: z.string().optional(),
@@ -41,6 +44,9 @@ export async function POST(request: NextRequest) {
     status,
     cover,
     ebook,
+    publishedYear,
+    publishedPlatform,
+    parts,
     assignedToUserId,
   } = body;
 
@@ -55,6 +61,9 @@ export async function POST(request: NextRequest) {
       status,
       cover,
       ebook,
+      publishedYear,
+      publishedPlatform,
+      parts,
       assignedToUserId,
     },
   });

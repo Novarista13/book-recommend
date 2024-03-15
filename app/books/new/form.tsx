@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSession } from "next-auth/react";
 
 import MultiSelect from "./multiSelect";
@@ -8,26 +8,34 @@ import FileUpload from "./fileUpload";
 import SingleSelect from "./singleSelect";
 import EnumSelect from "./enumSelect";
 
-import { boolean, z } from "zod";
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller } from "react-hook-form";
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import axios from "axios";
 import SingleCheck from "./singleCheck";
+import { Label } from "flowbite-react";
+import AddFormError from "./addFormError";
 
 const FormSchema = z.object({
-  // title: z.string().min(1).max(255),
-  // description: z.string().min(1),
-  // rating: z.string(),
-  // authorId: z.number().min(1),
-  // lang: z.string(),
-  availability: z.array(z.string()).optional(),
-  // status: z.string(),
-  // cover: z.string().optional(),
-  // ebook: z.string().optional(),
-  // assignedToUserId: z.string().optional(),
+  title: z.string().min(1).max(255),
+  description: z.string().min(1),
+  rating: z.string().min(1),
+  authorId: z.number().min(1),
+  lang: z.string().min(1),
+  status: z.string().min(1),
+  publishedYear: z.number().positive().optional(),
+  publishedPlatform: z.string().max(255).optional(),
+  parts: z.number().positive().optional(),
+  cover: z.string().optional(),
+  ebook: z.string().optional(),
 });
+
+interface Option {
+  readonly label: string;
+  readonly value: number;
+}
 
 const Form = () => {
   const { data: session } = useSession();
@@ -39,23 +47,20 @@ const Form = () => {
     formState: { errors },
   } = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
-    defaultValues: { availability: ["", "", ""] },
   });
   const [cover, setCover] = useState<File | null>();
   const [pdf, setPdf] = useState<File | null>();
+  const [availability, setAvailability] = useState<string[]>([]);
+  const [value, setValue] = React.useState<readonly Option[]>([]);
   const [error, setError] = useState("");
-
-  console.log(errors);
 
   async function fileUploadHandler(file: File) {
     if (!file) return;
-    let fileName = file?.name;
-    console.log(fileName);
 
     try {
       const data = new FormData();
       data.set("file", file);
-      console.log(data);
+
       const res = await axios.post("/api/photo-upload", data);
       if (res.statusText !== "OK") throw new Error("upload uncessfull");
     } catch (e: any) {
@@ -71,104 +76,262 @@ const Form = () => {
     if (pdf) {
       fileUploadHandler(pdf);
     }
-    console.log({
+    console.log(values);
+    if (value.length == 0) return;
+    console.log(values);
+
+    let data = {
       ...values,
+      availability: JSON.stringify(availability),
       cover: cover?.name,
       ebook: pdf?.name,
       assignedToUserId: session?.user.id,
+    };
+
+    const tempArray: number[] = [];
+    value.forEach((v) => {
+      tempArray.push(v.value);
     });
-    //   await axios.post("/api/books", data);
-    //   router.push("/books");
+
+    // try {
+    //   const res = await axios.post("/api/books", data);
+    //   if (res.data.id) {
+    //     await axios.post("/api/category-list", {
+    //       bookId: res.data.id,
+    //       categoryIdList: tempArray,
+    //     });
+    //     router.push("/books");
+    //   }
     // } catch (error) {
     //   setError("Unexpectd error ocuured!");
     // }
   };
 
   return (
-    <form className=" accent-[#76453B]" onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className=" accent-[#76453B] text-white"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <div className="flex flex-row gap-x-6">
-        <div className="flex flex-col min-h-[360px] basis-2/3 gap-y-3">
-          <input
-            type="text"
-            id="topbar-search"
-            className="accent-[#76453B] placeholder-[#76453B] text-[#76453B] bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-[#76453B] focus:border-[#76453B] block w-full p-2.5  "
-            placeholder="Book name"
-            {...register("title")}
-          />
-          <MultiSelect />
-          <Controller
-            name="authorId"
-            control={control}
-            render={({ field: { onChange, value } }) => (
-              <SingleSelect
-                onChange={(val: { value: any }) => onChange(val.value)}
-              />
+        <div className="flex flex-col min-h-[530px] mb-3 max-h-[600px] basis-2/3 gap-y-2">
+          <div>
+            <Label
+              htmlFor="title"
+              className="text-white mb-1 block"
+              value="Book Title"
+            />
+            <input
+              type="text"
+              id="title"
+              className="accent-[#76453B] placeholder-[#76453B] text-[#76453B] bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-[#76453B] focus:border-[#76453B] block w-full p-2.5  "
+              placeholder="Book name"
+              {...register("title")}
+            />
+            {errors?.title?.message && (
+              <AddFormError message="book title required" />
             )}
-            rules={{ required: true }}
-          />
+          </div>
+          <div>
+            <Label
+              htmlFor="categories"
+              className="text-white mb-1 block"
+              value="Book Categories"
+            />
+            <MultiSelect value={value} setValue={setValue} />
+          </div>
+          <div>
+            <Label
+              htmlFor="author"
+              className="text-white mb-1 block"
+              value="Book Author"
+            />
+            <Controller
+              name="authorId"
+              control={control}
+              render={({ field: { onChange } }) => (
+                <SingleSelect
+                  onChange={(val: { value: number }) => onChange(val.value)}
+                />
+              )}
+              rules={{ required: true }}
+            />
+            {errors?.authorId?.message && (
+              <AddFormError message="author required" />
+            )}
+          </div>
+          <div className="flex flex-row gap-x-6">
+            <div>
+              <Label
+                htmlFor="publishedYear"
+                className="text-white mb-1 block"
+                value="Published Year"
+              />
+              <input
+                type="number"
+                id="topbar-search"
+                className="accent-[#76453B] placeholder-[#76453B] text-[#76453B] bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-[#76453B] focus:border-[#76453B] block w-full p-2.5  "
+                placeholder="2..."
+                {...register("publishedYear", {
+                  setValueAs: (v) => (v === "" ? undefined : parseInt(v, 10)),
+                })}
+              />
+              {errors?.publishedYear?.message && (
+                <AddFormError message={errors?.publishedYear?.message} />
+              )}
+            </div>
+            <div className="mb-3">
+              <Label
+                htmlFor="publishedPlatform"
+                className="text-white mb-1 block"
+                value="Published Platfrom"
+              />
+              <input
+                type="text"
+                id="topbar-search"
+                className="accent-[#76453B] placeholder-[#76453B] text-[#76453B] bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-[#76453B] focus:border-[#76453B] block w-full p-2.5  "
+                placeholder="Amazon"
+                {...register("publishedPlatform")}
+              />
+              {errors?.publishedPlatform?.message && (
+                <AddFormError message={errors?.publishedPlatform?.message} />
+              )}
+            </div>
+          </div>
           <Controller
             name="description"
             control={control}
             render={({ field }) => (
               <SimpleMDE
                 placeholder="description"
-                className="max-h-24 p-0 accent-[#76453B] placeholder-[#76453B]"
+                options={{
+                  autofocus: true,
+                  toolbar: [
+                    "bold",
+                    "italic",
+                    "quote",
+                    "unordered-list",
+                    "ordered-list",
+                    "guide",
+                    "heading-1",
+                    "heading-2",
+                    "heading-3",
+                    "preview",
+                    "redo",
+                    "undo",
+                  ],
+                }}
+                className="max-h-[301px] max-w-[312px] p-0 placeholder-[#76453B]"
                 {...field}
               />
             )}
           />
+          {errors?.description?.message && (
+            <AddFormError message="description required" />
+          )}
         </div>
-        <div className="flex flex-col basis-1/3 gap-y-3">
-          <EnumSelect
-            register={register}
-            name="rating"
-            options={["1 Star", "2 Star", "3 Star", "4 Star", "5 Star"]}
-          />
-          <EnumSelect
-            register={register}
-            name="lang"
-            options={["English", "Burmese", "Korean", "Chinese", "Japanese"]}
-          />
-          <EnumSelect
-            register={register}
-            name="status"
-            options={["Ongoing", "Completed"]}
-          />
-          <div className="my-7 block">
+        <div className="flex flex-col basis-1/3 gap-y-2">
+          <div>
+            <Label
+              htmlFor="rating"
+              className="text-white mb-1 block"
+              value="Rating"
+            />
+            <EnumSelect
+              register={register}
+              name="rating"
+              options={["1 Star", "2 Star", "3 Star", "4 Star", "5 Star"]}
+            />
+            {errors?.rating?.message && (
+              <AddFormError message="rating required" />
+            )}
+          </div>
+          <div>
+            <Label
+              htmlFor="lang"
+              className="text-white mb-1 block"
+              value="Lang"
+            />
+            <EnumSelect
+              register={register}
+              name="lang"
+              options={["English", "Burmese", "Korean", "Chinese", "Japanese"]}
+            />
+            {errors?.lang?.message && (
+              <AddFormError message="language required" />
+            )}
+          </div>
+          <div>
+            <Label
+              htmlFor="status"
+              className="text-white mb-1 block"
+              value="Status"
+            />
+            <EnumSelect
+              register={register}
+              name="status"
+              options={["Ongoing", "Completed"]}
+            />
+            {errors?.status?.message && (
+              <AddFormError message="status required" />
+            )}
+          </div>
+          <div>
+            <Label
+              htmlFor="parts"
+              className="text-white mb-1 block"
+              value="Parts"
+            />
+            <input
+              type="number"
+              id="topbar-search"
+              className="accent-[#76453B] placeholder-[#76453B] text-[#76453B] bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-[#76453B] focus:border-[#76453B] block w-full p-2.5  "
+              placeholder="Parts"
+              {...register("parts", {
+                setValueAs: (v) => (v === "" ? undefined : parseInt(v, 10)),
+              })}
+            />
+            {errors?.parts?.message && (
+              <AddFormError message={errors?.parts?.message} />
+            )}
+          </div>
+          <div className="my-3 block">
             <div className="text-gray-50 text-center">Available Format</div>
             {[
               { label: "Hard Copy", value: "HardCopy" },
               { label: "E - Book", value: "EBook" },
               { label: "Audio book", value: "Audiobook" },
-            ].map((f, id) => (
+            ].map((f) => (
               <div className="text-end mt-1 ms-0 pr-5" key={f.value}>
-                <Controller
-                  control={control}
-                  rules={{
-                    required: true,
-                  }}
-                  render={({ field: { onChange, ref, value } }) => (
-                    <SingleCheck
-                      data={f}
-                      onChange={(val: { value: any }) => onChange(val.value)}
-                    />
-                  )}
-                  name={`availability.${id}`}
+                <SingleCheck
+                  data={f}
+                  onChange={(e: { target: { checked: any } }) =>
+                    setAvailability(
+                      e.target.checked
+                        ? [...availability, f.value]
+                        : availability.filter((i) => i !== f.value)
+                    )
+                  }
                 />
               </div>
             ))}
           </div>
+          <div className="flex flex-col gap-y-3">
+            <FileUpload
+              label="Upload Cover"
+              changeHandler={(e) => setCover(e.target.files?.[0])}
+            />
+            {errors?.cover?.message && (
+              <AddFormError message={errors?.cover?.message} />
+            )}
+            <FileUpload
+              label="Upload Pdf"
+              changeHandler={(e) => setPdf(e.target.files?.[0])}
+            />
+            {errors?.ebook?.message && (
+              <AddFormError message={errors?.ebook?.message} />
+            )}
+          </div>
         </div>
-      </div>
-      <div className="flex flex-row mb-5 gap-x-3">
-        <FileUpload
-          label="Upload Cover"
-          changeHandler={(e) => setCover(e.target.files?.[0])}
-        />
-        <FileUpload
-          label="Upload Pdf"
-          changeHandler={(e) => setPdf(e.target.files?.[0])}
-        />
       </div>
 
       <button

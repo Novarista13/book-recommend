@@ -19,8 +19,6 @@ const SingleCheck = ({ ...props }) => {
         id="checkbox"
         type="checkbox"
         {...props}
-        defaultValue=" "
-        value={props.data.value}
         className="w-4 h-4 text-[#76453B] bg-gray-100 border-gray-300 rounded focus:ring-[#B19470] dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
       />
     </>

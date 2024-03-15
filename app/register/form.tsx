@@ -40,10 +40,9 @@ const Form = () => {
   const [error, setError] = useState("");
 
   const onSubmit = async (values: z.infer<typeof FormSchema>) => {
-    // console.log(values);
     try {
       const res = await axios.post("/api/user", values);
-      console.log(res);
+
       router.push("/login");
     } catch (error) {
       setError("Unexpectd error ocuured!");

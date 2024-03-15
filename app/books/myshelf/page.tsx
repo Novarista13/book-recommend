@@ -1,14 +1,13 @@
 import React from "react";
-import Books from "./books";
-import NavLine from "./NavLine";
-import NotesPage from "./NotesPage";
+import TabLine from "./TabLine";
 
 const page = () => {
   return (
-    <div className="md:ml-[24px] ">
-      <NavLine />
-      <Books />
-      <NotesPage />
+    <div className="md:ml-[24px] text-normal my-5 font-medium ">
+      <p className="text-2xl mb-1 font-extrabold text-left text-[#F8FAE5]">
+        Your Shelf
+      </p>
+      <TabLine />
     </div>
   );
 };

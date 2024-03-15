@@ -1,35 +1,63 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
 
 import BookCover from "./BookCover";
-import BuyBook from "./BuyBook";
+import ReadBook from "./ReadBook";
 import AboutAuthor from "./AboutAuthor";
-import BookNav from "./BookNav";
 import AboutBook from "./AboutBook";
+import axios from "axios";
+import BookTabs from "./BookTabs";
 
-const Books = ({ params }: { params: { id: string } }) => {
+const PageUI = ({ params }: { params: { id: string } }) => {
+  const [book, setBook] = useState<{
+    title: string;
+    description: string;
+    rating: string;
+    status: string;
+    author: { name: string; about: string };
+    publishedYear: number;
+    publishedPlatform: string;
+    lang: string;
+    parts: number;
+  }>();
+  const [error, setError] = useState("");
+  useEffect(() => {
+    (async () => {
+      try {
+        let res = await axios.get(`/api/books/${params.id}`);
+        let data = res.data;
+        setBook(data);
+      } catch (error) {
+        setError("Fetching Data not successfull!");
+      }
+    })();
+  }, []);
+
   return (
-    <div className="overflow-y-auto m-9 mr-1">
-      <div className="grid grid-cols-9 grid-rows-7 gap-5">
-        <div className="col-span-2 row-span-3">
-          <BookCover />
-        </div>
-        <div className="col-span-4 row-span-3 col-start-3">
-          <AboutBook />
-        </div>
-        <div className="col-span-3 row-span-3 col-start-7">
-          <AboutAuthor />
-        </div>
-        <div className="col-span-2 row-span-3 row-start-4">
-          <BuyBook />
-        </div>
-        <div className="col-span-7 row-span-3 col-start-3 row-start-4">
-          <BookNav />
+    book && (
+      <div className=" m-7 mr-4">
+        <div className="grid grid-cols-5  gap-3 gap-y-8">
+          <div className="row-span-3">
+            <BookCover />
+          </div>
+          <div className="col-span-2 row-span-3 col-start-2 ml-4">
+            <AboutBook book={book} />
+          </div>
+          <div className="col-span-2 row-span-3 col-start-4 ml-4">
+            <AboutAuthor author={book?.author} />
+          </div>
+          <div className="row-start-4 row-span-3">
+            <ReadBook />
+          </div>
+          <div className="col-span-4 col-start-2 row-span-3 row-start-4 ml-4 ">
+            {/* <BookNav /> */}
+            <BookTabs book={book} />
+          </div>
         </div>
       </div>
-    </div>
+    )
   );
 };
 
-export default Books;
+export default PageUI;

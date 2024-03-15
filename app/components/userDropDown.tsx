@@ -18,7 +18,7 @@ const UserDropDown = () => {
         <Avatar
           alt="User"
           className="hover:ring-4 hover:rounded-full hover:ring-[#76453B] "
-          img={`${session?.user.image}`}
+          img={`${session?.user.image ?? "/pf_sample.jpg"}`}
           rounded
         />
       }

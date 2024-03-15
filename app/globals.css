@@ -12,8 +12,23 @@ body {
   background: var(--background) !important;
 }
 
+/* simple mde editor */
+
 .EasyMDEContainer .CodeMirror {
-  height: 100px !important;
+  height: 180px !important;
+}
+
+.editor-statusbar {
+  padding: 0px !important;
+}
+
+.EasyMDEContainer .CodeMirror-scroll {
+  min-height: 191px !important;
+}
+
+.editor-toolbar button.active,
+.editor-toolbar button:hover {
+  color: #76453b !important;
 }
 
 select:not([size]) {
@@ -80,3 +95,4 @@ select:not([size]) {
 .css-1xc3v61-indicatorContainer {
   color: #76453b !important;
 }
+

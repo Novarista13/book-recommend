@@ -77,7 +77,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
         <NavFooter />
       </aside>
       <main
-        className="p-2 pr-4 md:ml-[200px] h-auto pt-[62px]"
+        className="p-2 md:ml-[200px] h-auto pt-[62px]"
         onClick={handleMainClick}
       >
         {children}

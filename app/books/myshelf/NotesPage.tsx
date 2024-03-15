@@ -26,7 +26,7 @@ const notes = [
 
 const NotesPage = () => {
   return (
-    <div className="mt-20">
+    <>
       <p className="text-2xl my-8 font-extrabold text-left text-[#F8FAE5]">
         Notes & Bookmarks
       </p>
@@ -35,7 +35,7 @@ const NotesPage = () => {
           <SingleNote key={id} paragraph={n} bgColor={colorClasses[id]} />
         ))}
       </div>
-    </div>
+    </>
   );
 };
 

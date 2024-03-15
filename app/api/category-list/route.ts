@@ -53,7 +53,6 @@ export async function POST(request: NextRequest) {
   //   });
   //   createdCategoryArray.push(category);
   // });
-  
 
   const createdCategoryList = await prisma.categoryList.createMany({
     data: categoryIdList.map((c: number) => ({ bookId, categoryId: c })),

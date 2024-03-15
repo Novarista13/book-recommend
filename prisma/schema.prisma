@@ -67,24 +67,27 @@ model VerificationToken {
 }
 
 model Books {
-  id               Int            @id @default(autoincrement())
-  title            String         @db.VarChar(255)
-  description      String         @db.Text
-  rating           String
-  authorId         Int
-  author           Authors        @relation(fields: [authorId], references: [id])
-  lang             Lang           @default(English)
-  availability     Json?          @default("[]")
-  status           Status         @default(Ongoing)
-  cover            String?        @db.VarChar(255)
-  ebook            String?        @db.VarChar(255)
-  createdAt        DateTime       @default(now())
-  updatedAt        DateTime       @updatedAt
-  assignedToUserId String?        @db.VarChar(255)
-  assignedToUser   User?          @relation(fields: [assignedToUserId], references: [id])
-  Reviews          Reviews[]
-  Lists            Lists[]
-  CategoryList     CategoryList[]
+  id                Int            @id @default(autoincrement())
+  title             String         @db.VarChar(255)
+  description       String         @db.Text
+  rating            String
+  authorId          Int
+  author            Authors        @relation(fields: [authorId], references: [id])
+  lang              Lang           @default(English)
+  availability      Json?          @default("[]")
+  status            Status         @default(Ongoing)
+  publishedYear     Int?            @db.Year
+  publishedPlatform String?        @db.VarChar(255)
+  parts             Int?
+  cover             String?        @db.VarChar(255)
+  ebook             String?        @db.VarChar(255)
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+  assignedToUserId  String?        @db.VarChar(255)
+  assignedToUser    User?          @relation(fields: [assignedToUserId], references: [id])
+  Reviews           Reviews[]
+  Lists             Lists[]
+  CategoryList      CategoryList[]
 
   @@unique([id])
 }

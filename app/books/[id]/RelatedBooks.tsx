@@ -22,7 +22,7 @@ const Books = () => {
   }, []);
 
   return (
-    <div className="my-5 text-[#F8FAE5]">
+    <div className=" text-[#F8FAE5]">
       <div className="flex flex-row gap-[27px] flex-wrap">
         <SingleBook />
         <SingleBook />

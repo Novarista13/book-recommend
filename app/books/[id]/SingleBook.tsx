@@ -15,7 +15,9 @@ const SingleBook = ({ book }: any) => {
           alt="book image"
         />
         <div className="basis-2/3 leading-6">
-          <p className="text-[16px] text-gray-700">Don’t Make Me Think</p>
+          <p className="text-[15px] line-clamp-2 font-medium text-gray-700">
+            Don’t Make Me Think
+          </p>
           <p className="text-gray-500 text-[11px]">by Steve Krug, 2000</p>
         </div>
       </div>
