@@ -9,7 +9,7 @@ import React, {
 import CreatableSelect from "react-select/creatable";
 import makeAnimated from "react-select/animated";
 import axios from "axios";
-import AddFormError from "./addFormError";
+import AddFormError from "../../new/Form/addFormError";
 
 const animatedComponents = makeAnimated();
 
@@ -35,10 +35,10 @@ export default function MultiSelect({
 
   useEffect(() => {
     (async () => {
-      const res = await axios.get("/api/categories");
+      const res = await axios.get("/api/books");
       const tempArray: SetStateAction<{ value: number; label: string }[]> = [];
-      res?.data?.map((item: { id: number; name: string }) =>
-        tempArray.push({ value: item.id, label: item.name })
+      res?.data?.map((item: { id: number; title: string }) =>
+        tempArray.push({ value: item.id, label: item.title })
       );
       tempArray.length > 0 && setOptions(tempArray);
     })();
@@ -47,12 +47,12 @@ export default function MultiSelect({
   const handleCreate = async () => {
     if (!inputValue) return;
     setIsLoading(true);
-    const res = await axios.post("/api/categories", { name: inputValue });
-    const { id, name } = res?.data;
-    setValue([...value, { value: id, label: name }]);
-    setOptions([...options, { value: id, label: name }]);
-    setInputValue("");
-    setIsLoading(false);
+    // const res = await axios.post("/api/categories", { name: inputValue });
+    // const { id, name } = res?.data;
+    // setValue([...value, { value: id, label: name }]);
+    // setOptions([...options, { value: id, label: name }]);
+    // setInputValue("");
+    // setIsLoading(false);
   };
 
   return (
@@ -66,8 +66,9 @@ export default function MultiSelect({
         onChange={(newValue) => setValue(newValue)}
         onInputChange={(newValue) => setInputValue(newValue)}
         onCreateOption={handleCreate}
-        placeholder="choose category"
+        placeholder="choose book"
         value={value}
+        isOptionDisabled={() => value.length >= 4}
         className="text-[#76453B] text-sm"
         isMulti
         options={options}
@@ -116,7 +117,7 @@ export default function MultiSelect({
           }),
         }}
       />
-      {/* {value.length == 0 && <AddFormError message="category required" />} */}
+      {value.length == 0 && <AddFormError message="at least 1 book required" />}
     </>
   );
 }

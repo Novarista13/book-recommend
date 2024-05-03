@@ -1,13 +1,14 @@
 import { Tabs, TabItem } from "flowbite-react";
 import BookOverview from "./BookOverview";
-import Reviews from "./Reviews";
-import Lists from "./Lists";
-import Books from "./RelatedBooks";
+import Reviews from "../reviews/Reviews";
+import Lists from "../lists/Lists";
+import Books from "../relatedBooks/RelatedBooks";
 
 export default function BookTabs({
   book,
 }: {
   book: {
+    id: number;
     description: string;
     publishedYear: number;
     publishedPlatform: string;
@@ -29,14 +30,15 @@ export default function BookTabs({
     {
       title: "Lists",
       isActive: false,
-      component: <Lists />,
+      component: <Lists bookId={book.id} />,
     },
-    {
-      title: "Related Books",
-      isActive: false,
-      component: <Books />,
-    },
+    // {
+    //   title: "Related Books",
+    //   isActive: false,
+    //   component: <Books />,
+    // },
   ];
+
   return (
     <Tabs
       style="underline"

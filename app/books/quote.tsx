@@ -1,9 +1,10 @@
 "use client";
 
+import Link from "next/link";
 
 const Quote = () => {
   return (
-    <a
+    <Link
       href="#"
       style={{
         backgroundImage:
@@ -23,7 +24,7 @@ const Quote = () => {
           <span className="ml-[68%]">-Walt Disney</span>
         </p>
       </div>
-    </a>
+    </Link>
   );
 };
 

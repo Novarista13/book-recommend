@@ -100,7 +100,7 @@ const PdfView = ({ handleFullscreen }: any) => {
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                clip-rule="evenodd"
+                clipRule="evenodd"
                 fill-rule="evenodd"
                 d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
               ></path>
@@ -195,6 +195,7 @@ const PdfView = ({ handleFullscreen }: any) => {
 
           <Dropdown
             label="view"
+            className=" bg-[#F8FAE5] rounded-lg border-2 border-[#76453B] "
             renderTrigger={() => (
               <div className="group">
                 <button className="text-[#76453B] border-2 border-[#76453B] group-hover:text-white group-hover:bg-[#76453B] focus:ring-2 focus:ring-[#B19470] p-1 px-3 text-sm rounded-lg">
@@ -214,7 +215,11 @@ const PdfView = ({ handleFullscreen }: any) => {
             )}
           >
             {["single", "double", "scroll"].map((v) => (
-              <Dropdown.Item key={v} onClick={() => setView(v)}>
+              <Dropdown.Item
+                key={v}
+                className="hover:bg-[#76453B] hover:text-[#F8FAE5] focus:bg-[#76453B] focus:text-[#F8FAE5]"
+                onClick={() => setView(v)}
+              >
                 <span className="px-3 capitalize">{v}</span>
               </Dropdown.Item>
             ))}

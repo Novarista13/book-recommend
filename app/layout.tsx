@@ -1,4 +1,5 @@
 import "./globals.css";
+import "easymde/dist/easymde.min.css";
 import type { Metadata } from "next";
 import { Roboto_Slab } from "next/font/google";
 import Navbar from "./Navbar";
@@ -20,7 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={font.className}>
         <AuthProvider>
-            <Navbar>{children}</Navbar>
+          <Navbar>{children}</Navbar>
         </AuthProvider>
       </body>
     </html>

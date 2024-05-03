@@ -1,7 +1,7 @@
 import React from "react";
 
 const CurrentReading = ({ color, count, title }: any) => {
-  console.log(color);
+  // console.log(color);
 
   return (
     <div

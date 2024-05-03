@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import bookImage from "../../../public/book.jpg";
 import Image from "next/image";
 
@@ -15,33 +16,33 @@ const ReadBook = ({ book }: any) => {
             className="basis-1/4 w-7 h-7"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g stroke-width="0"></g>
-            <g stroke-linecap="round" stroke-linejoin="round"></g>
+            <g strokeWidth="0"></g>
+            <g strokeLinecap="round" strokeLinejoin="round"></g>
             <g>
               <path
                 d="M3 3H8.4C9.35478 3 10.2705 3.37928 10.9456 4.05442C11.6207 4.72955 12 5.64522 12 6.6V21C12 20.2839 11.7155 19.5972 11.2092 19.0908C10.7028 18.5845 10.0161 18.3 9.3 18.3H3V3Z"
                 stroke="#76453B"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               ></path>
               <path
                 d="M21 3H15.6C14.6452 3 13.7295 3.37928 13.0544 4.05442C12.3793 4.72955 12 5.64522 12 6.6V20.7C12 19.9839 12.2845 19.2972 12.7908 18.7908C13.2972 18.2845 13.9839 18 14.7 18H21V3Z"
                 stroke="#76453B"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               ></path>
             </g>
           </svg>
-          <a
+          <Link
             href="#"
             className="basis-3/4 text-sm underline"
             target="_blank"
             rel="noopener noreferrer"
           >
             Wattpad
-          </a>
+          </Link>
         </div>
       </div>
       <div className=" mb-2">
@@ -59,9 +60,9 @@ const ReadBook = ({ book }: any) => {
                 >
                   <path
                     stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M1 5.917 5.724 10.5 15 1.5"
                   />
                 </svg>
@@ -69,14 +70,14 @@ const ReadBook = ({ book }: any) => {
               </div>
               <ul className="ps-6 text-[13px]">
                 <li>
-                  <a
+                  <Link
                     href="#"
                     className="basis-3/4 text-sm underline"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     Wattpad
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </li>

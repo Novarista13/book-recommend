@@ -1,11 +1,12 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 const BookCover = ({ img }: any) => {
   return (
     <div className="w-[190px] min-w-[190px]  bg-[#F8FAE5] border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-      <a href="#">
+      <Link href="#">
         <Image
           width={145}
           height={190}
@@ -13,9 +14,9 @@ const BookCover = ({ img }: any) => {
           className="mx-auto my-4"
           alt="book image"
         />
-      </a>
+      </Link>
       <div className="mx-auto flex flex-row p-6 pt-3 text-center">
-        <a href="#" className="mx-auto">
+        <Link href="#" className="mx-auto">
           <svg
             width="21"
             height="18"
@@ -30,8 +31,8 @@ const BookCover = ({ img }: any) => {
             />
           </svg>
           <p className="text-[9px]">Review</p>
-        </a>
-        <a href="#" className="mx-auto">
+        </Link>
+        <Link href="#" className="mx-auto">
           <svg
             width="21"
             height="18"
@@ -46,8 +47,8 @@ const BookCover = ({ img }: any) => {
             />
           </svg>
           <p className="text-[9px]">Review</p>
-        </a>
-        <a href="#" className="mx-auto">
+        </Link>
+        <Link href="#" className="mx-auto">
           <svg
             width="21"
             height="18"
@@ -62,7 +63,7 @@ const BookCover = ({ img }: any) => {
             />
           </svg>
           <p className="text-[9px]">Review</p>
-        </a>
+        </Link>
       </div>
     </div>
   );

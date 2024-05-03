@@ -2,10 +2,9 @@
 import React, { useState } from "react";
 import SigninButton from "./components/signInButton";
 import Brand from "./components/brand";
-import TopBarSearch from "./components/topBarSearch";
-import SideBarSearch from "./components/sideBarSearch";
 import NavFooter from "./components/navFooter";
 import NavLinks from "./components/navLinks";
+import BarSearch from "./components/BarSearch";
 
 const Navbar = ({ children }: { children: React.ReactNode }) => {
   const [showSide, setShowSide] = useState(false);
@@ -58,7 +57,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
               <span className="sr-only">Toggle sidebar</span>
             </button>
             <Brand />
-            <TopBarSearch />
+            <BarSearch inputPlace="top" />
           </div>
           <SigninButton />
         </div>
@@ -71,7 +70,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
         id="drawer-navigation"
       >
         <div className="overflow-y-auto py-5 px-3 h-full bg-[#F8FAE5] dark:bg-gray-800">
-          <SideBarSearch />
+          <BarSearch inputPlace="side" />
           <NavLinks />
         </div>
         <NavFooter />

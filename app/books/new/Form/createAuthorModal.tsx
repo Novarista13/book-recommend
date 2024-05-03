@@ -91,7 +91,7 @@ const CreateAuthorModal = ({
                 {...register("name")}
               />
             </div>
-            <div className="h-[190px]">
+            <div className="h-[270px]">
               <div className="mb-1 block ">
                 <Label
                   htmlFor="about"

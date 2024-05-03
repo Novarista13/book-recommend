@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
-import { useSearchParams } from "next/navigation";
 import { z } from "zod";
 import prisma from "@/prisma/client";
+import { getServerSession } from "next-auth";
+import authOptions from "../auth/[...nextauth]/authOptions";
 
 const createReviewSchema = z.object({
+  rating: z.number(),
   content: z.string().min(1),
   bookId: z.number(),
-  userId: z.string().min(1),
 });
 
 export async function GET(request: NextRequest) {
@@ -33,17 +34,24 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
+  const session = await getServerSession(authOptions);
+  if (!session) return NextResponse.json({}, { status: 401 });
+  const {
+    user: { id },
+  } = session;
+
   const body = await request.json();
   const validation = createReviewSchema.safeParse(body);
   if (!validation.success)
     return NextResponse.json(validation.error.errors, { status: 400 });
 
-  const { content, bookId, userId } = body;
+  const { rating, content, bookId } = body;
   const newReview = await prisma.reviews.create({
     data: {
+      rating,
       content,
       bookId,
-      userId,
+      userId: id,
     },
   });
   return NextResponse.json(newReview, { status: 201 });

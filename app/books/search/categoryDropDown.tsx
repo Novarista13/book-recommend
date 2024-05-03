@@ -6,7 +6,7 @@ const CategoryDropdown = () => {
     <div className="max-w-[120px]">
       <Dropdown
         label="view"
-        className="bg-[#F8FAE5]"
+        className=" bg-[#F8FAE5] rounded-lg border-2 border-[#76453B] "
         renderTrigger={() => (
           <div className="group">
             <button className="text-[#76453B] bg-[#F8FAE5] hover:bg-[#76453B] hover:text-[#F8FAE5] focus:ring-2 focus:ring-[#B19470] font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none">
@@ -28,7 +28,7 @@ const CategoryDropdown = () => {
         {["engineering", "medical", "art & science", "architecture"].map(
           (v) => (
             <Dropdown.Item
-              className="bg-[#F8FAE5] focus:bg-[#76453B] focus:text-[#F8FAE5]"
+              className="hover:bg-[#76453B] hover:text-[#F8FAE5] focus:bg-[#76453B] focus:text-[#F8FAE5]"
               key={v}
               onClick={() => console.log(v)}
             >

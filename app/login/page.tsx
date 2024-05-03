@@ -14,7 +14,7 @@ const page = async (props: Props) => {
     <div className="grid place-content-center w-full">
       <div className="min-w-[400px] ml-7 mt-5 bg-[#F8FAE5] border border-gray-200 rounded-lg shadow mx-auto">
         <div className="max-w-[300px] mx-auto my-7">
-          <a href="#" className="flex items-center justify-center mr-4">
+          <Link href="#" className="flex items-center justify-center mr-4">
             <Image
               src={books}
               priority={true}
@@ -25,7 +25,7 @@ const page = async (props: Props) => {
             <span className="self-center text-2xl ml-2 font-semibold whitespace-nowrap dark:text-white">
               AetherReads
             </span>
-          </a>
+          </Link>
           <div className="text-center my-7">
             <p className="text-[16px] my-3">Welcome Back !</p>
             <p className="text-[12px] text-[#4c4c4c]">

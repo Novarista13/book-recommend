@@ -26,16 +26,11 @@ const notes = [
 
 const NotesPage = () => {
   return (
-    <>
-      <p className="text-2xl my-8 font-extrabold text-left text-[#F8FAE5]">
-        Notes & Bookmarks
-      </p>
-      <div className="columns-1 md:columns-2 lg:columns-4 gap-6 space-y-6">
-        {notes.map((n, id) => (
-          <SingleNote key={id} paragraph={n} bgColor={colorClasses[id]} />
-        ))}
-      </div>
-    </>
+    <div className="columns-1 md:columns-2 lg:columns-4 gap-6 space-y-6 px-5">
+      {notes.map((n, id) => (
+        <SingleNote key={id} paragraph={n} bgColor={colorClasses[id]} />
+      ))}
+    </div>
   );
 };
 

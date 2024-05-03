@@ -1,9 +1,10 @@
-import React from 'react'
+import Link from "next/link";
+import React from "react";
 
 const NavFooter = () => {
   return (
     <div className="hidden absolute bottom-0 left-0 justify-center p-4 space-x-4 w-full lg:flex bg-[#F8FAE5] dark:bg-gray-800 z-20">
-      <a
+      {/* <Link
         href="#"
         className="inline-flex justify-center p-2 text-[#76453B] rounded cursor-pointer hover:text-[#F8FAE5] dark:text-gray-400dark:hover:text-white hover:bg-[#76453B] dark:hover:bg-gray-600"
       >
@@ -16,9 +17,9 @@ const NavFooter = () => {
         >
           <path d="M5 4a1 1 0 00-2 0v7.268a2 2 0 000 3.464V16a1 1 0 102 0v-1.268a2 2 0 000-3.464V4zM11 4a1 1 0 10-2 0v1.268a2 2 0 000 3.464V16a1 1 0 102 0V8.732a2 2 0 000-3.464V4zM16 3a1 1 0 011 1v7.268a2 2 0 010 3.464V16a1 1 0 11-2 0v-1.268a2 2 0 010-3.464V4a1 1 0 011-1z"></path>
         </svg>
-      </a>
-      <a
-        href="#"
+      </Link> */}
+      <Link
+        href="/account"
         data-tooltip-target="tooltip-settings"
         className="inline-flex justify-center p-2 text-[#76453B] rounded cursor-pointer dark:text-gray-400 dark:hover:text-white hover:text-[#F8FAE5] hover:bg-[#76453B] dark:hover:bg-gray-600"
       >
@@ -35,7 +36,7 @@ const NavFooter = () => {
             clipRule="evenodd"
           ></path>
         </svg>
-      </a>
+      </Link>
       <div
         id="tooltip-settings"
         role="tooltip"
@@ -46,6 +47,6 @@ const NavFooter = () => {
       </div>
     </div>
   );
-}
+};
 
-export default NavFooter
+export default NavFooter;

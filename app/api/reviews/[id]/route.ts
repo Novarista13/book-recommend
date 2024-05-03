@@ -3,9 +3,9 @@ import prisma from "@/prisma/client";
 import { z } from "zod";
 
 const editReviewSchema = z.object({
+  rating: z.number(),
   content: z.string().min(1),
 });
-
 
 export async function PUT(
   request: NextRequest,
@@ -16,7 +16,7 @@ export async function PUT(
   if (!validation.success)
     return NextResponse.json(validation.error.errors, { status: 400 });
 
-  const { content } = body;
+  const { rating, content } = body;
 
   const review = await prisma.reviews.findUnique({
     where: { id: parseInt(params.id) },
@@ -28,6 +28,7 @@ export async function PUT(
   const updatedReview = await prisma.reviews.update({
     where: { id: review.id },
     data: {
+      rating,
       content,
     },
   });

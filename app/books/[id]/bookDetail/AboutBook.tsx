@@ -1,15 +1,15 @@
 import React from "react";
-import { Dropdown, Rating } from "flowbite-react";
-import check from "../../../public/check.svg";
-import cross from "../../../public/cross.svg";
+import check from "../../../../public/check.svg";
+import cross from "../../../../public/cross.svg";
 import Image from "next/image";
+import AddList from "./AddList";
 
 const AboutBook = ({
   book,
 }: {
   book: {
+    id: number;
     title: string;
-    rating: string;
     availability: string;
     status: string;
     author: { name: string };
@@ -69,7 +69,7 @@ const AboutBook = ({
             >
               <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
             </svg>
-            <p>{book?.rating[0]}.0 Ratings</p>
+            <p>.0 Ratings</p>
           </div>
 
           <p>25 Currently reading</p>
@@ -107,46 +107,7 @@ const AboutBook = ({
               {book?.status}
             </p>
           </div>
-          <div className="self-center">
-            <Dropdown
-              label="add to list"
-              className=" bg-[#F8FAE5]"
-              renderTrigger={() => (
-                <div className="group">
-                  <button className="text-[#76453B] bg-[#F8FAE5] hover:bg-[#76453B] hover:text-[#F8FAE5] focus:ring-2 focus:ring-[#B19470] font-medium rounded-md text-sm px-3 py-2  me-2 mb-2  focus:outline-none ">
-                    Add to List
-                    <svg
-                      width="13"
-                      height="7"
-                      viewBox="0 0 13 7"
-                      className="pl-1 inline group-hover:text-white w-4 h-4 text-[#76453B] dark:text-gray-400"
-                      fill="currentColor"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M7.17585 6.38027C6.79349 6.73088 6.20651 6.73088 5.82415 6.38027L1.03312 1.98704C0.360988 1.37072 0.797034 0.25 1.70896 0.25L11.291 0.25C12.203 0.25 12.639 1.37072 11.9669 1.98704L7.17585 6.38027Z" />
-                    </svg>
-                  </button>
-                </div>
-              )}
-            >
-              {[
-                "Explorations in Ethereal Realms: A Journey Through Magical Realism",
-                "Whispers of the Cosmos: Mystical Tales from Beyond",
-                "Echoes of Ancient Wisdom: Unraveling the Threads of History",
-                "Luminous Landscapes: A Visual Odyssey Through Nature's Wonders",
-                "Wanderlust Chronicles: Adventures Across Continents",
-                "Enchanted Encounters: Stories of Serendipity and Fate",
-                "Sonnets of the Soul: Poetry for the Heart and Mind",
-              ].map((v) => (
-                <Dropdown.Item
-                  className="focus:bg-[#76453B] focus:text-[#F8FAE5] "
-                  key={v}
-                >
-                  <span className="px-3 capitalize">{v}</span>
-                </Dropdown.Item>
-              ))}
-            </Dropdown>
-          </div>
+          <AddList bookId={book?.id} />
         </div>
         <div className="flex flex-row gap-x-6">
           <div className="w-full  border border-[#F8FAE5] rounded-lg shadow  text-center py-2 p-4 flex flex-row items-center gap-x-3">
@@ -166,7 +127,7 @@ const AboutBook = ({
               className="p-1 pr-0"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <g clip-path="url(#clip0_68_1200)">
+              <g clipPath="url(#clip0_68_1200)">
                 <path
                   d="M20.3125 15.1042H18.2292C17.6539 15.1042 17.1875 15.5706 17.1875 16.1459V23.4376C17.1875 24.0129 17.6539 24.4792 18.2292 24.4792H20.3125C20.8878 24.4792 21.3542 24.0129 21.3542 23.4376V16.1459C21.3542 15.5706 20.8878 15.1042 20.3125 15.1042Z"
                   fill="white"

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import Markdown from "react-markdown";
 
@@ -32,6 +32,7 @@ const BookOverview = ({
 }: {
   book: {
     publishedYear: number;
+    description: string;
     publishedPlatform: string;
     lang: string;
     parts: number;
@@ -44,6 +45,25 @@ const BookOverview = ({
   useEffect(() => {
     setIsOverflowing(checkOverflow(contentRef.current));
   }, []);
+
+  const modifiedText = useMemo(() => {
+    const lines = book?.description.split("\\n");
+
+    return lines
+      .map((line: string, index: number) => {
+        const isListItem = /^\s*[*\-+]\s+|^\s*\d+\.\s+/.test(line);
+        const isNextLineListItem =
+          index < lines.length - 1 &&
+          /^\s*[*\-+]\s+|^\s*\d+\.\s+/.test(lines[index + 1]);
+
+        if (isListItem || isNextLineListItem) return line;
+
+        if (line.trim() === "\\") return line.replace("\\", "&nbsp;\n");
+
+        return line + "&nbsp;\n";
+      })
+      .join("\n");
+  }, [book?.description]);
 
   return (
     <>
@@ -68,7 +88,7 @@ const BookOverview = ({
       </div>
       <div className="text-white">
         <p className="text-[18px] font-medium mb-1">Description</p>
-        <p
+        <div
           className={`text-[16px] prose max-w-none prose-p:text-white prose-headings:text-[#F8FAE5] prose-headings:my-2 prose-ul:mb-2 prose-p:my-3 prose-ul:text-gray-200 prose-strong:text-[#F8FAE5] indent-6 leading-relaxed ${
             textShow
               ? "line-clamp-none max-h-auto"
@@ -76,27 +96,8 @@ const BookOverview = ({
           }`}
           ref={contentRef}
         >
-          <Markdown>{`**Title:** *The Ultimate Guide to Productivity: Mastering Your Time and Achieving Your Goals*
-
-In *The Ultimate Guide to Productivity: Mastering Your Time and Achieving Your Goals*, author Sarah Johnson presents a comprehensive roadmap for maximizing efficiency and success in both personal and professional spheres. Divided into three main sections:
-
-### Time Management Strategies
-- Techniques such as the Pomodoro Technique
-- Eisenhower Matrix
-- Importance of prioritization
-
-### Goal Setting Techniques
-- SMART goals
-- Visualization exercises
-- Habit formation
-
-### Productivity Tools and Resources
-- Curated list of apps, books, and websites
-- Expert advice on utilizing these resources effectively
-
-With insightful anecdotes and expert advice, *The Ultimate Guide to Productivity* equips readers with the necessary tools to take control of their time, set meaningful goals, and achieve lasting success.
-`}</Markdown>
-        </p>
+          <Markdown>{modifiedText}</Markdown>
+        </div>
         {isOverflowing && (
           <Link
             href="#"

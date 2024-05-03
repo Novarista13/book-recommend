@@ -1,6 +1,10 @@
 import React from "react";
 
-const TopBarSearch = () => {
+const SearchInput = ({
+  filterBook,
+}: {
+  filterBook: (title: string) => void;
+}) => {
   return (
     <form className="hidden md:block md:pl-2 ">
       <label htmlFor="topbar-search" className="sr-only">
@@ -23,14 +27,15 @@ const TopBarSearch = () => {
         </div>
         <input
           type="text"
-          name="email"
+          name="title"
           id="topbar-search"
           className="accent-[#76453B] placeholder-[#B19470] text-[#76453B] bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-[#76453B] focus:border-[#76453B] block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
           placeholder="Atomic Habit"
+          onChange={(e) => filterBook(e.target.value)}
         />
       </div>
     </form>
   );
 };
 
-export default TopBarSearch;
+export default SearchInput;

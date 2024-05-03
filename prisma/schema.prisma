@@ -70,13 +70,12 @@ model Books {
   id                Int            @id @default(autoincrement())
   title             String         @db.VarChar(255)
   description       String         @db.Text
-  rating            String
   authorId          Int
   author            Authors        @relation(fields: [authorId], references: [id])
   lang              Lang           @default(English)
   availability      Json?          @default("[]")
   status            Status         @default(Ongoing)
-  publishedYear     Int?            @db.Year
+  publishedYear     Int?           @db.Year
   publishedPlatform String?        @db.VarChar(255)
   parts             Int?
   cover             String?        @db.VarChar(255)
@@ -114,6 +113,7 @@ model Lists {
 
 model Reviews {
   id        Int      @id @default(autoincrement())
+  rating    Int
   content   String   @db.Text
   bookId    Int
   book      Books    @relation(fields: [bookId], references: [id])

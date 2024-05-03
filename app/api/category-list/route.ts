@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(validation.error.errors, { status: 400 });
 
   const { bookId, categoryIdList } = body;
-
+ 
   // let createdCategoryArray: { bookId: number; categoryId: number }[] = [];
 
   // await categoryIdList.forEach(async (id: number) => {

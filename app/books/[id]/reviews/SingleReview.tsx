@@ -2,6 +2,7 @@
 import { useLayoutEffect, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Avatar, Rating } from "flowbite-react";
+import Markdown from "react-markdown";
 
 function checkOverflow(
   el:
@@ -28,7 +29,13 @@ function checkOverflow(
   return isOverflowing;
 }
 
-const SingleReview = ({ text }: { text: string }) => {
+const SingleReview = ({
+  text,
+  user,
+}: {
+  text: string;
+  user: { username: string; image: null | string };
+}) => {
   const contentRef = useRef(null);
   const [textShow, setTextShow] = useState(false);
   const [isOverflowing, setIsOverflowing] = useState(false);
@@ -48,7 +55,7 @@ const SingleReview = ({ text }: { text: string }) => {
           <Rating.Star />
         </Rating>
       </div>
-      <p
+      <div
         className={`text-[15px] indent-3 text-[#76453B] font-medium ${
           textShow ? "line-clamp-none" : "line-clamp-6"
         }`}
@@ -74,11 +81,13 @@ const SingleReview = ({ text }: { text: string }) => {
         </svg>
         <div
           ref={contentRef}
-          className={` pt-2 ${textShow ? "max-h-auto" : "max-h-[145px]"}`}
+          className={` pt-2 prose  prose-p:text-[#76453B] prose-headings:text-[#76453B] prose-headings:my-2 prose-ul:mb-2 prose-p:my-3 prose-ul:text-[#76453B] prose-bullets:text-[#76453B] prose-strong:text-[#76453B] ${
+            textShow ? "max-h-auto" : "max-h-[145px]"
+          }`}
         >
-          {text}
+          <Markdown>{text}</Markdown>
         </div>
-      </p>
+      </div>
       {isOverflowing && (
         <Link
           href="#"
@@ -95,12 +104,12 @@ const SingleReview = ({ text }: { text: string }) => {
         <Avatar
           alt="User"
           className="hover:ring-4 hover:rounded-full hover:ring-[#76453B] "
-          img="/pf_sample.jpg"
+          img={`${user?.image ?? "/pf_sample.jpg"}`}
           rounded
         />
         <div className="flex items-center divide-x-2 divide-[#B19470]">
           <p className="pr-3 font-medium text-gray-900 dark:text-white">
-            Micheal Gough
+            {user?.username}
           </p>
           <p className="pl-2 text-sm text-[#B19470]">3/5/2024</p>
         </div>

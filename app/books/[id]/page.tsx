@@ -5,12 +5,13 @@ import React, { useState, useEffect } from "react";
 import BookCover from "./BookCover";
 import ReadBook from "./ReadBook";
 import AboutAuthor from "./AboutAuthor";
-import AboutBook from "./AboutBook";
+import AboutBook from "./bookDetail/AboutBook";
 import axios from "axios";
-import BookTabs from "./BookTabs";
+import BookTabs from "./bookOverview/BookTabs";
 
-const PageUI = ({ params }: { params: { id: string } }) => {
+const page = ({ params }: { params: { id: string } }) => {
   const [book, setBook] = useState<{
+    id: number;
     title: string;
     description: string;
     rating: string;
@@ -60,4 +61,4 @@ const PageUI = ({ params }: { params: { id: string } }) => {
   );
 };
 
-export default PageUI;
+export default page;

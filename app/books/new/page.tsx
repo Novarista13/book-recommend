@@ -1,15 +1,17 @@
-import Form from "./form";
-import Recommend from "./recommend";
+import Form from "./Form/form";
 import Success from "./success";
 
 const NewBookPage = () => {
   return (
-    <div className="flex flex-row my-[3%] gap-x-9 pr-4 md:ml-[24px]">
-      <div className="max-w-xl p-7 pb-5 bg-grey-50 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 basis-2/3">
+    <div className="flex flex-col my-[20px] gap-y-5 pr-4 md:ml-[24px]">
+      <p className="text-white text-[40px] tracking-wide font-extrabold ">
+        Your <span className="text-[#e3c39c]">Recommendation </span>
+        Helps Other to Read
+      </p>
+      <div className="max-w-auto p-7 pb-5 bg-grey-50 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <Form />
         {/* <Success /> */}
       </div>
-      <Recommend />
     </div>
   );
 };

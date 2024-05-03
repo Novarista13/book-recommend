@@ -8,10 +8,10 @@ import React, { ChangeEventHandler } from "react";
 
 const SingleCheck = ({ ...props }) => {
   return (
-    <>
+    <div className="text-end mt-1 ms-0 pr-5">
       <label
         htmlFor="checkbox"
-        className="me-2 text-sm font-medium text-gray-50 dark:text-gray-300"
+        className="me-1 text-sm font-medium text-gray-50 dark:text-gray-300"
       >
         {props.data.label}
       </label>
@@ -21,7 +21,7 @@ const SingleCheck = ({ ...props }) => {
         {...props}
         className="w-4 h-4 text-[#76453B] bg-gray-100 border-gray-300 rounded focus:ring-[#B19470] dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
       />
-    </>
+    </div>
   );
 };
 

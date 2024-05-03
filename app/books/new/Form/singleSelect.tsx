@@ -22,7 +22,6 @@ export default function SingleSelect({ ...props }) {
       tempArray.length > 0 && setOptions(tempArray);
     })();
   }, []);
-  
 
   return (
     <>

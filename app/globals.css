@@ -18,12 +18,21 @@ body {
   height: 180px !important;
 }
 
+.review-form .CodeMirror {
+  /* this is aim for the form in reviews section for single books */
+  height: 120px !important;
+}
+
 .editor-statusbar {
   padding: 0px !important;
 }
 
 .EasyMDEContainer .CodeMirror-scroll {
-  min-height: 191px !important;
+  min-height: 170px !important;
+}
+
+.review-form .CodeMirror-scroll {
+  min-height: 100px !important;
 }
 
 .editor-toolbar button.active,
@@ -36,6 +45,8 @@ select:not([size]) {
   background-size: auto;
   background-position: right 1.5rem center;
 }
+
+/* read e-book section */
 
 .pdf-single-page {
   background-color: transparent !important;
@@ -96,3 +107,24 @@ select:not([size]) {
   color: #76453b !important;
 }
 
+/* topBar Search Section */
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown .options {
+  display: none;
+  margin-top: 10px;
+  max-height: 200px;
+  overflow-y: auto;
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  z-index: 1000;
+  -webkit-overflow-scrolling: touch;
+}
+
+.dropdown .options.open {
+  display: block;
+}

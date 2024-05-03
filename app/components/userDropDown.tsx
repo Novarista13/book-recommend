@@ -12,7 +12,7 @@ const UserDropDown = () => {
   return (
     <Dropdown
       arrowIcon={false}
-      className="ring-2 ring-[#76453B] bg-[#F8FAE5] text-[#76453B]"
+      className="ring-2 ring-[#76453B] bg-[#F8FAE5] text-[#76453B] rounded-lg border-2 border-[#76453B] "
       inline
       label={
         <Avatar
