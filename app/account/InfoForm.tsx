@@ -1,12 +1,14 @@
 "use client";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 
-import SimpleMDE from "react-simplemde-editor";
+import SimpleMDE, { SimpleMDEReactProps } from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import { useForm, Controller } from "react-hook-form";
 
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { useSession } from "next-auth/react";
+import UserInfo from "./UserInfo";
 
 interface infoForm {
   full_name: string;
@@ -20,6 +22,40 @@ const InfoForm = () => {
   const router = useRouter();
   const { register, control, handleSubmit } = useForm<infoForm>();
   const [error, setError] = useState("");
+  const [userInfo, setUserInfo] = useState<{
+    name: string | null | undefined;
+    email: string | null | undefined;
+  }>({
+    name: null,
+    email: null,
+  });
+  const { data: session } = useSession();
+
+  useMemo(() => {
+    if (session)
+      setUserInfo({
+        name: session?.user.username || session?.user.name,
+        email: session?.user.email,
+      });
+  }, [session]);
+
+  const mdeOptions = useMemo(() => {
+    return {
+      toolbar: [
+        "bold",
+        "italic",
+        "quote",
+        "unordered-list",
+        "ordered-list",
+        "guide",
+        "heading-1",
+        "heading-2",
+        "heading-3",
+        "redo",
+        "undo",
+      ],
+    } as SimpleMDEReactProps;
+  }, []);
 
   return (
     <form
@@ -33,72 +69,41 @@ const InfoForm = () => {
         }
       })}
     >
-      <div className="flex flex-row gap-x-5">
-        <div className="w-full">
-          <label
-            htmlFor="email"
-            className="block mb-1 text-[12px] font-medium text-gray-900 dark:text-white"
-          >
-            Full name
-          </label>
-          <input
-            disabled={true}
-            type="text"
-            id="topbar-search"
-            className="accent-[#76453B] disabled:placeholder-[#647284] placeholder-[#B19470] text-[#76453B] bg-gray-50 border border-gray-300 text-[12px] rounded-lg focus:ring-[#76453B] focus:border-[#76453B] block w-full h-[2.25rem] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-            placeholder="Novarista May"
-            {...register("full_name")}
-          />
-        </div>
-        <div className="w-full">
-          <label
-            htmlFor="email"
-            className="block mb-1 text-[12px] font-medium text-gray-900 dark:text-white"
-          >
-            Email
-          </label>{" "}
-          <input
-            disabled={true}
-            type="text"
-            id="topbar-search"
-            className="accent-[#76453B] disabled:placeholder-[#647284]  placeholder-[#B19470] text-[#76453B] bg-gray-50 border border-gray-300 text-[12px] rounded-lg focus:ring-[#76453B] focus:border-[#76453B] block w-full  h-[2.25rem] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-            placeholder="serenenova1345@gmail.com"
-            {...register("email")}
-          />
-        </div>
-      </div>
-      <div className="flex flex-row gap-x-5">
-        <div className="w-full">
-          <label
-            htmlFor="email"
-            className="block mb-1 text-[12px] font-medium text-gray-900 dark:text-white"
-          >
-            Register number
-          </label>
-          <input
-            disabled={true}
-            type="text"
-            id="topbar-search"
-            className="accent-[#76453B] disabled:placeholder-[#647284]  placeholder-[#B19470] text-[#76453B] bg-gray-50 border border-gray-300 text-[12px] rounded-lg focus:ring-[#76453B] focus:border-[#76453B] block w-full  h-[2.25rem] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-            placeholder="6022020"
-            {...register("register_num")}
-          />
-        </div>
-        <div className="w-full">
-          <label
-            htmlFor="email"
-            className="block mb-1 text-[12px] font-medium text-gray-900 dark:text-white"
-          >
-            Phone number
-          </label>
-          <input
-            disabled={true}
-            type="text"
-            id="topbar-search"
-            className="accent-[#76453B] disabled:placeholder-[#647284]  placeholder-[#B19470] text-[#76453B] bg-gray-50 border border-gray-300 text-[12px] rounded-lg focus:ring-[#76453B] focus:border-[#76453B] block w-full  h-[2.25rem] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-            placeholder="09777187742"
-            {...register("phone_num")}
-          />
+      <div className="flex flex-row items-center gap-x-6">
+        <UserInfo />
+        <div className="flex flex-col basis-1/2 gap-y-5">
+          <div className="w-full">
+            <label
+              htmlFor="email"
+              className="block mb-1 text-[12px] font-medium text-gray-900 dark:text-white"
+            >
+              Full name
+            </label>
+            <input
+              disabled={true}
+              type="text"
+              id="topbar-search"
+              className="accent-[#76453B] disabled:placeholder-[#647284] placeholder-[#B19470] text-[#76453B] bg-gray-50 border border-gray-300 text-[12px] rounded-lg focus:ring-[#76453B] focus:border-[#76453B] block w-full h-[2.25rem] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+              value={userInfo?.name ?? "sample name"}
+              {...register("full_name")}
+            />
+          </div>
+          <div className="w-full">
+            <label
+              htmlFor="email"
+              className="block mb-1 text-[12px] font-medium text-gray-900 dark:text-white"
+            >
+              Email
+            </label>{" "}
+            <input
+              disabled={true}
+              type="text"
+              id="topbar-search"
+              className="accent-[#76453B] disabled:placeholder-[#647284]  placeholder-[#B19470] text-[#76453B] bg-gray-50 border border-gray-300 text-[12px] rounded-lg focus:ring-[#76453B] focus:border-[#76453B] block w-full  h-[2.25rem] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+              value={userInfo?.email ?? "sample@gmail.com"}
+              {...register("email")}
+            />
+          </div>
         </div>
       </div>
       <div className="w-full">
@@ -114,7 +119,8 @@ const InfoForm = () => {
           render={({ field }) => (
             <SimpleMDE
               placeholder="I’m a Student "
-              className=" p-0 max-h-[160px] pointer-events-none text-[12px] accent-[#76453B] placeholder-[#B19470]"
+              options={mdeOptions}
+              className=" p-0 max-h-[301px] info-form pointer-events-none text-[12px] accent-[#76453B] placeholder-[#B19470]"
               {...field}
             />
           )}

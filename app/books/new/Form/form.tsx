@@ -80,7 +80,7 @@ const Form = () => {
       const data = new FormData();
       data.set("file", file);
 
-      const res = await axios.post("/api/photo-upload", data);
+      const res = await axios.post("/api/file-upload", data);
       if (res.statusText !== "OK") throw new Error("upload uncessfull");
     } catch (e: any) {
       console.error(e);

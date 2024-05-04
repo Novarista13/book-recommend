@@ -18,6 +18,10 @@ body {
   height: 180px !important;
 }
 
+.info-form .EasyMDEContainer .CodeMirror {
+  height: 100px !important;
+}
+
 .review-form .CodeMirror {
   /* this is aim for the form in reviews section for single books */
   height: 120px !important;
@@ -30,6 +34,8 @@ body {
 .EasyMDEContainer .CodeMirror-scroll {
   min-height: 170px !important;
 }
+
+
 
 .review-form .CodeMirror-scroll {
   min-height: 100px !important;
