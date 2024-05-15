@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useSession } from "next-auth/react";
 
 import MultiSelect from "./multiSelect";
@@ -21,7 +21,6 @@ import AddFormError from "./addFormError";
 const FormSchema = z.object({
   title: z.string().min(1).max(255),
   description: z.string().min(1),
-  rating: z.string().min(1),
   authorId: z.number().min(1),
   lang: z.string().min(1),
   status: z.string().min(1),
@@ -38,7 +37,6 @@ interface Option {
 }
 
 const Form = () => {
-  const { data: session } = useSession();
   const router = useRouter();
   const {
     register,
@@ -52,7 +50,7 @@ const Form = () => {
   const [pdf, setPdf] = useState<File | null>();
   const [availability, setAvailability] = useState<string[]>([]);
   const [category, setCategory] = React.useState<readonly Option[]>([]);
-  const [transLang, setTransLang] = React.useState<readonly Option[]>([]);
+  // const [transLang, setTransLang] = React.useState<readonly Option[]>([]);
 
   const mdeOptions = useMemo(() => {
     return {
@@ -86,6 +84,7 @@ const Form = () => {
       console.error(e);
     }
   }
+  console.log(errors);
 
   const onSubmit = async (values: z.infer<typeof FormSchema>) => {
     // try {
@@ -108,19 +107,21 @@ const Form = () => {
     category.forEach((c) => {
       categoryArray.push(c.value);
     });
+    console.log("it's here");
 
-    // try {
-    //   const res = await axios.post("/api/books", data);
-    //   if (res.data.id) {
-    //     await axios.post("/api/category-list", {
-    //       bookId: res.data.id,
-    //       categoryIdList: categoryArray,
-    //     });
-    //     router.push("/books");
-    //   }
-    // } catch (error) {
-    //   setError("Unexpectd error ocuured!");
-    // }
+    try {
+      const res = await axios.post("/api/books", data);
+      console.log("it's here in the api");
+      if (res.data.id) {
+        await axios.post("/api/category-list", {
+          bookId: res.data.id,
+          categoryIdList: categoryArray,
+        });
+        router.push("/books");
+      }
+    } catch (error) {
+      // setError("Unexpectd error ocuured!");
+    }
   };
 
   return (
@@ -219,6 +220,28 @@ const Form = () => {
                 <AddFormError message={errors?.publishedYear?.message} />
               )}
             </div>
+
+            <div>
+              <Label
+                htmlFor="parts"
+                className="text-white mb-1 block"
+                value="Parts"
+              />
+              <input
+                type="number"
+                id="topbar-search"
+                className="accent-[#76453B] placeholder-[#76453B] text-[#76453B] bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-[#76453B] focus:border-[#76453B] block w-full p-2.5  "
+                placeholder="Parts"
+                {...register("parts", {
+                  setValueAs: (v) => (v === "" ? undefined : parseInt(v, 10)),
+                })}
+              />
+              {errors?.parts?.message && (
+                <AddFormError message={errors?.parts?.message} />
+              )}
+            </div>
+          </div>
+          <div className="flex flex-row gap-x-6">
             <div>
               <Label
                 htmlFor="publishedPlatform"
@@ -234,46 +257,6 @@ const Form = () => {
               />
               {errors?.publishedPlatform?.message && (
                 <AddFormError message={errors?.publishedPlatform?.message} />
-              )}
-            </div>
-          </div>
-          <div className="flex flex-row gap-x-6">
-            <div>
-              <Label
-                htmlFor="parts"
-                className="text-white mb-1 block"
-                value="Parts"
-              />
-              <input
-                type="number"
-                id="topbar-search"
-                className="accent-[#76453B] placeholder-[#76453B] text-[#76453B] bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-[#76453B] focus:border-[#76453B] block w-full p-2.5  "
-                placeholder="Parts"
-                {...register("parts", {
-                  setValueAs: (v) => (v === "" ? undefined : parseInt(v, 10)),
-                })}
-              />
-              {errors?.parts?.message && (
-                <AddFormError message={errors?.parts?.message} />
-              )}
-            </div>
-            <div>
-              <Label
-                htmlFor="parts"
-                className="text-white mb-1 block"
-                value="Parts"
-              />
-              <input
-                type="number"
-                id="topbar-search"
-                className="accent-[#76453B] placeholder-[#76453B] text-[#76453B] bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-[#76453B] focus:border-[#76453B] block w-full p-2.5  "
-                placeholder="Parts"
-                {...register("parts", {
-                  setValueAs: (v) => (v === "" ? undefined : parseInt(v, 10)),
-                })}
-              />
-              {errors?.parts?.message && (
-                <AddFormError message={errors?.parts?.message} />
               )}
             </div>
           </div>
@@ -333,7 +316,8 @@ const Form = () => {
               )}
             </div>
           </div>
-          <div>
+          {/* <div>
+          Removing this because we have to make a change in the book table in database. so if you have time, you can do this!
             <Label
               htmlFor="categories"
               className="text-white mb-1 block"
@@ -363,7 +347,7 @@ const Form = () => {
                   )
               )}
             </div>
-          )}
+          )} */}
           <div className="flex flex-row gap-x-6">
             <div className="my-3 block basis-1/2">
               <div className="text-gray-50 font-medium text-right">
@@ -389,7 +373,7 @@ const Form = () => {
               ))}
               {/* </div> */}
             </div>
-            {transLang.length > 2 && (
+            {/* {transLang.length > 2 && (
               <div className="flex flex-col basis-1/2">
                 {transLang?.map(
                   (t, id) =>
@@ -411,7 +395,7 @@ const Form = () => {
                     )
                 )}
               </div>
-            )}
+            )} */}
           </div>
         </div>
       </div>

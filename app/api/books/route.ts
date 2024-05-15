@@ -25,7 +25,7 @@ export async function GET(request: NextRequest) {
     user: { id },
   } = session;
   const books = await prisma.books.findMany({
-    orderBy: { title: "asc" },
+    orderBy: { createdAt: "desc" },
     include: {
       author: { select: { name: true, about: true } },
       Lists: {

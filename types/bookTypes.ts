@@ -13,3 +13,18 @@ export interface bookType {
     cover: string | null;
   };
 }
+export interface book {
+  id: number;
+  title: string;
+  description: string;
+  rating: string;
+  status: string;
+  author: { name: string; about: string };
+  publishedYear: number;
+  publishedPlatform: string;
+  lang: string;
+  availability: string;
+  cover?: string;
+  ebook?: string;
+  parts: number;
+}

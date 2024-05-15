@@ -3,6 +3,7 @@ import { useLayoutEffect, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Avatar, Rating } from "flowbite-react";
 import Markdown from "react-markdown";
+import { review } from "./Reviews";
 
 function checkOverflow(
   el:
@@ -29,13 +30,7 @@ function checkOverflow(
   return isOverflowing;
 }
 
-const SingleReview = ({
-  text,
-  user,
-}: {
-  text: string;
-  user: { username: string; image: null | string };
-}) => {
+const SingleReview = ({ review }: { review: review }) => {
   const contentRef = useRef(null);
   const [textShow, setTextShow] = useState(false);
   const [isOverflowing, setIsOverflowing] = useState(false);
@@ -43,16 +38,19 @@ const SingleReview = ({
   useEffect(() => {
     setIsOverflowing(checkOverflow(contentRef.current));
   }, []);
+  console.log(review);
 
   return (
     <div className="h-min w-full bg-[#F8FAE5] border border-gray-200 rounded-xl shadow p-2 px-4 overflow-hidden cursor-text">
       <div className="my-2 flex items-center">
         <Rating size="sm">
-          <Rating.Star />
-          <Rating.Star />
-          <Rating.Star />
-          <Rating.Star />
-          <Rating.Star />
+          {(() => {
+            const arr = [];
+            for (let i = 0; i < review.rating; i++) {
+              arr.push(<Rating.Star />);
+            }
+            return arr;
+          })()}
         </Rating>
       </div>
       <div
@@ -85,7 +83,7 @@ const SingleReview = ({
             textShow ? "max-h-auto" : "max-h-[145px]"
           }`}
         >
-          <Markdown>{text}</Markdown>
+          <Markdown>{review.content}</Markdown>
         </div>
       </div>
       {isOverflowing && (
@@ -103,15 +101,23 @@ const SingleReview = ({
       <div className="my-3 flex items-center space-x-3">
         <Avatar
           alt="User"
-          className="hover:ring-4 hover:rounded-full hover:ring-[#76453B] "
-          img={`${user?.image ?? "/pf_sample.jpg"}`}
+          className="hover:ring-4 hover:rounded-full min-w-10 hover:ring-[#76453B] "
+          img={
+            review?.user?.image
+              ? review?.user?.image?.includes("https")
+                ? review?.user?.image
+                : `/${review?.user?.image}`
+              : "/pf_sample.jpg"
+          }
           rounded
         />
-        <div className="flex items-center divide-x-2 divide-[#B19470]">
+        <div className="flex w-full items-center divide-x-2 divide-[#B19470]">
           <p className="pr-3 font-medium text-gray-900 dark:text-white">
-            {user?.username}
+            {review?.user?.username}
           </p>
-          <p className="pl-2 text-sm text-[#B19470]">3/5/2024</p>
+          <p className="pl-2 text-sm text-[#B19470]">
+            {review?.createdAt?.slice(0, 10)}
+          </p>
         </div>
       </div>
     </div>

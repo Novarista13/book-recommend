@@ -11,31 +11,59 @@ import { Controller, useForm } from "react-hook-form";
 import SimpleMDEReact, { SimpleMDEReactProps } from "react-simplemde-editor";
 
 import { z } from "zod";
+import { review } from "./Reviews";
+import { useSession } from "next-auth/react";
 
 const FormSchema = z.object({
   rating: z.number().positive(),
   content: z.string().min(1),
 });
-const ReviewForm = ({ book }: { book: { id: number } }) => {
+const ReviewForm = ({
+  book,
+  reviews,
+  setReviews,
+}: {
+  book: { id: number };
+  reviews: review[];
+  setReviews: React.Dispatch<React.SetStateAction<review[]>>;
+}) => {
   const {
     register,
     control,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
+
   const [error, setError] = useState("");
+
+  const { data: session } = useSession();
+
+  var date = new Date().toISOString().split("T")[0];
+  console.log(date);
 
   const onSubmit = async (values: z.infer<typeof FormSchema>) => {
     try {
       console.log(values);
 
-      const res = await axios.post("/api/reviews", {
-        ...values,
-        bookId: book?.id,
-      });
-      console.log(res);
+      // const res = await axios.post("/api/reviews", {
+      //   ...values,
+      //   bookId: book?.id,
+      // });
+      setReviews([
+        ...reviews,
+        {
+          ...values,
+          createdAt: date,
+          user: {
+            username: (session?.user.username || session?.user.name) ?? "",
+            image: session?.user.image ? session?.user.image : null,
+          },
+        },
+      ]);
+      reset();
     } catch (error) {
       setError("Unexpectd error ocuured!");
     }

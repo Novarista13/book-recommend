@@ -3,7 +3,7 @@ import SingleBook from "../allBooks/SingleBook";
 import axios from "axios";
 import AddBookModal from "./addBookModal";
 
-export interface book {
+export interface listBook {
   id: number;
   status: string;
   title: string;
@@ -25,7 +25,7 @@ const ListView = ({
 }: {
   title: string;
   setCurrent: React.Dispatch<React.SetStateAction<string>>;
-  books: book[];
+  books: listBook[];
   removeFavorite: (id: number) => void;
 }) => {
   const [currentBooks, setCurrentBooks] = useState(books);

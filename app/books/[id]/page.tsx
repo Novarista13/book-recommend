@@ -8,20 +8,10 @@ import AboutAuthor from "./AboutAuthor";
 import AboutBook from "./bookDetail/AboutBook";
 import axios from "axios";
 import BookTabs from "./bookOverview/BookTabs";
+import { book } from "@/types/bookTypes";
 
 const page = ({ params }: { params: { id: string } }) => {
-  const [book, setBook] = useState<{
-    id: number;
-    title: string;
-    description: string;
-    rating: string;
-    status: string;
-    author: { name: string; about: string };
-    publishedYear: number;
-    publishedPlatform: string;
-    lang: string;
-    parts: number;
-  }>();
+  const [book, setBook] = useState<book>();
   const [error, setError] = useState("");
   useEffect(() => {
     (async () => {

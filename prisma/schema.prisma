@@ -132,6 +132,15 @@ model Categories {
   @@unique([id, name])
 }
 
+// model Languages {
+//   id           Int            @id @default(autoincrement())
+//   name         String         @db.VarChar(255)
+//   createdAt    DateTime       @default(now())
+//   Books     Books[]
+
+//   @@unique([id, name])
+// }
+
 model Authors {
   id        Int      @id @default(autoincrement())
   name      String   @db.VarChar(255)

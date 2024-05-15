@@ -3,6 +3,14 @@ import SingleReview from "./SingleReview";
 import ReviewForm from "./ReviewForm";
 import axios from "axios";
 
+export interface review {
+  id?: number;
+  content: string;
+  createdAt: string;
+  rating: number;
+  user: { username: string; image: null | string };
+}
+
 export function useIsVisible(ref: any) {
   const [isIntersecting, setIntersecting] = useState(false);
 
@@ -24,14 +32,7 @@ export function useIsVisible(ref: any) {
 const Reviews = ({ book }: { book: { id: number } }) => {
   const contentRef = useRef(null);
   const isVisible = useIsVisible(contentRef);
-  const [reviews, setReviews] = useState<
-    {
-      id: number;
-      content: string;
-      createdAt: string;
-      user: { username: string; image: null | string };
-    }[]
-  >([]);
+  const [reviews, setReviews] = useState<review[]>([]);
 
   useEffect(() => {
     (async () => {
@@ -44,15 +45,15 @@ const Reviews = ({ book }: { book: { id: number } }) => {
       }
     })();
   }, []);
-  console.log(reviews);
+  
 
   return (
     <div ref={contentRef} className="overflow-y-auto max-h-[400px]">
-      <ReviewForm book={book} />
+      <ReviewForm book={book} reviews={reviews} setReviews={setReviews} />
       {isVisible && (
         <div className="columns-1 md:columns-2 gap-6 space-y-6 py-2">
           {reviews?.map((t) => (
-            <SingleReview key={t?.id} text={t.content} user={t.user} />
+            <SingleReview key={t?.id} review={t} />
           ))}
         </div>
       )}
