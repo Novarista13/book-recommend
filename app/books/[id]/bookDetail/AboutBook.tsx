@@ -22,7 +22,7 @@ const AboutBook = ({
           <p className="text-3xl text-white mb-1">{book?.title}</p>
           <p className="text-gray-100 text-sm">By {book?.author?.name}</p>
         </div>
-        <div className="flex flex-row text-[12.5px] gap-x-3 text-white">
+        {/* <div className="flex flex-row text-[12.5px] gap-x-3 text-white">
           <div className="flex items-center">
             <svg
               className="w-3.5 h-3.5 text-yellow-300"
@@ -74,7 +74,7 @@ const AboutBook = ({
 
           <p>25 Currently reading</p>
           <p>119 Have read</p>
-        </div>
+        </div> */}
         <div className="text-white flex flex-row gap-x-10 items-start">
           <div className="flex flex-col gap-y-1">
             <p className="text-[14px]">Availability</p>

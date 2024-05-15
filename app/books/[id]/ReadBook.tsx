@@ -45,7 +45,7 @@ const ReadBook = ({ book }: any) => {
           </Link>
         </div>
       </div>
-      <div className=" mb-2">
+      {/* <div className=" mb-2">
         <p className="text-[15px]">Translated in -</p>
         <ul className="space-y-2 my-1 text-left ">
           {["Burmese", "VietNam"].map((lang) => (
@@ -83,7 +83,7 @@ const ReadBook = ({ book }: any) => {
             </li>
           ))}
         </ul>
-      </div>
+      </div> */}
     </div>
   );
 };

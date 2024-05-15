@@ -51,10 +51,10 @@ const SingleBook = ({
           {book?.author.name + " " + (book?.publishedYear ?? "")}
         </p>
       </div>
-      <div className="basis-1/12">
+      {/* <div className="basis-1/12">
         <span>{0}</span>
         <span className="text-xs text-gray-500">/5</span>
-      </div>
+      </div> */}
       <div className="basis-3/12 flex flex-col justify-between leading-normal gap-y-0.5">
         {categories.length > 0 &&
           categories.map((c) => (
