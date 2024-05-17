@@ -1,9 +1,10 @@
 "use client";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SingleList from "./SingleList";
 import ListView from "./ListView";
 import CreateListModal from "./createListModal";
+import { useIsVisible } from "../../[id]/bookOverview/reviews/Reviews";
 
 export interface lists {
   [listType: string]: {
@@ -30,6 +31,8 @@ const Lists = ({
   const [error, setError] = useState("");
   const [currentList, setCurrentList] = useState("");
   const [openModal, setOpenModal] = useState(false);
+  const contentRef = useRef(null);
+  const isVisible = useIsVisible(contentRef);
 
   useEffect(() => {
     (async () => {
@@ -41,10 +44,10 @@ const Lists = ({
         setError("Fetching Data not successfull!");
       }
     })();
-  }, []);
+  }, [isVisible]);
 
   return (
-    <div className=" text-[#F8FAE5]">
+    <div ref={contentRef} className=" text-[#F8FAE5]">
       <CreateListModal
         openModal={openModal}
         lists={lists}

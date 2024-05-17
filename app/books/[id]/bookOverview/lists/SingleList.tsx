@@ -1,6 +1,6 @@
 "use client";
 
-import bookImage from "../../../../public/book.jpg";
+import bookImage from "../../../../../public/book.jpg";
 import Image from "next/image";
 
 const SingleList = ({

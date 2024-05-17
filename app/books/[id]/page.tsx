@@ -30,7 +30,7 @@ const page = ({ params }: { params: { id: string } }) => {
       <div className=" m-7 mr-4">
         <div className="grid grid-cols-5  gap-3 gap-y-8">
           <div className="row-span-3">
-            <BookCover />
+            <BookCover img={book?.cover} />
           </div>
           <div className="col-span-2 row-span-3 col-start-2 ml-4">
             <AboutBook book={book} />

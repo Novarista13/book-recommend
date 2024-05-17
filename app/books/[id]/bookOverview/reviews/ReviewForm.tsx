@@ -48,10 +48,10 @@ const ReviewForm = ({
     try {
       console.log(values);
 
-      // const res = await axios.post("/api/reviews", {
-      //   ...values,
-      //   bookId: book?.id,
-      // });
+      const res = await axios.post("/api/reviews", {
+        ...values,
+        bookId: book?.id,
+      });
       setReviews([
         ...reviews,
         {

@@ -32,6 +32,7 @@ const CreateAuthorModal = ({
   const {
     register,
     control,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm<z.infer<typeof FormSchema>>({
@@ -49,7 +50,7 @@ const CreateAuthorModal = ({
 
       const { id, name } = res.data;
       setOptions([...options, { value: id, label: name }]);
-
+      reset();
       setOpenModal(false);
       setIsLoading(false);
     } catch (error) {

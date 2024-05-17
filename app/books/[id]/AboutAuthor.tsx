@@ -9,8 +9,8 @@ const AboutAuthor = ({
 }) => {
   return (
     <div className="w-full h-full bg-[#F8FAE5] border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 text-left p-4 pt-1 pb-2">
-      <h3 className="font-bold">About Author</h3>
-      <div className="mt-1 mb-2">
+      <h3 className="font-bold text-sm">About Author: </h3>
+      <div className="mt-2 mb-2">
         <p
           className="text-[15px] font-medium"
           style={{
@@ -25,15 +25,15 @@ const AboutAuthor = ({
         >
           {author?.name}
         </p>
-        <p className="text-[13px]">{author?.about}</p>
+        <p className="text-[13px] mt-3">{author?.about}</p>
       </div>
-      <div>
+      {/* <div>
         <p className="text-sm font-bold">other books</p>
         <div className="flex flex-row gap-x-4 pt-1">
           <Image width={50} height={50} src={bookImage} alt="book image" />
           <Image width={50} height={50} src={bookImage} alt="book image" />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

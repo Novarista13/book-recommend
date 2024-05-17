@@ -30,6 +30,7 @@ const Form = ({ callbackUrl }: Props) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -47,6 +48,7 @@ const Form = ({ callbackUrl }: Props) => {
       setError("Something went wrong!");
       router.push(callbackUrl ?? "http://localhost:3000/login");
     } else {
+      reset();
       router.push("/books");
     }
   };

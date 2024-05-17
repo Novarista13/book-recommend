@@ -60,14 +60,14 @@ const InfoForm = () => {
   return (
     <form
       className="space-y-3 flex flex-col m-4"
-      onSubmit={handleSubmit(async (data) => {
-        try {
-          await axios.post("/api/books", data);
-          router.push("/books");
-        } catch (error) {
-          setError("Unexpectd error ocuured!");
-        }
-      })}
+      // onSubmit={handleSubmit(async (data) => {
+      //   try {
+      //     await axios.post("/api/books", data);
+      //     router.push("/books");
+      //   } catch (error) {
+      //     setError("Unexpectd error ocuured!");
+      //   }
+      // })}
     >
       <div className="flex flex-row items-center gap-x-6">
         <UserInfo />

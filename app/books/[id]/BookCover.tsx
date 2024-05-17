@@ -11,7 +11,7 @@ const BookCover = ({ img }: any) => {
           width={145}
           height={190}
           src={`/${img ?? "sample-cover.jpg"}`}
-          className="mx-auto my-4"
+          className="mx-auto my-4 h-[190px]"
           alt="book image"
         />
       </Link>

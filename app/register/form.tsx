@@ -32,6 +32,7 @@ const Form = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -42,7 +43,7 @@ const Form = () => {
   const onSubmit = async (values: z.infer<typeof FormSchema>) => {
     try {
       const res = await axios.post("/api/user", values);
-
+      reset();
       router.push("/login");
     } catch (error) {
       setError("Unexpectd error ocuured!");

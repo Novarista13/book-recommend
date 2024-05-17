@@ -41,6 +41,7 @@ const Form = () => {
   const {
     register,
     control,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm<z.infer<typeof FormSchema>>({
@@ -107,7 +108,6 @@ const Form = () => {
     category.forEach((c) => {
       categoryArray.push(c.value);
     });
-    console.log("it's here");
 
     try {
       const res = await axios.post("/api/books", data);
@@ -117,6 +117,7 @@ const Form = () => {
           bookId: res.data.id,
           categoryIdList: categoryArray,
         });
+        reset();
         router.push("/books");
       }
     } catch (error) {

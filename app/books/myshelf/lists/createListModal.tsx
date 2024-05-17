@@ -4,12 +4,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import "easymde/dist/easymde.min.css";
 import { Label, Modal } from "flowbite-react";
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import MultiSelect from "./multiSelect";
 import { lists } from "./Lists";
+import MultiSelect from "./multiSelect";
 
 const FormSchema = z.object({
   listType: z.string().min(1).max(255),
@@ -33,7 +32,7 @@ const CreateListModal = ({
 }) => {
   const {
     register,
-    control,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm<z.infer<typeof FormSchema>>({
@@ -57,6 +56,8 @@ const CreateListModal = ({
       await axios.post("/api/lists", { listType, bookIdArray });
       setOpenModal(false);
       setLists({ ...lists, [listType]: [] });
+      reset();
+      
     } catch (error) {
       setError("Unexpectd error ocuured!");
     }

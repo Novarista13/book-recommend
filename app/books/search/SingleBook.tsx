@@ -40,9 +40,9 @@ const SingleBook = ({
     >
       <Image
         width={55}
-        height={60}
+        height={75}
         src={`/${book?.cover ?? "sample-cover.jpg"}`}
-        className="pl-2 basis-1/12 rounded-lg  object-cover rounded-t-lg md:h-auto md:rounded-none md:rounded-s-lg"
+        className="pl-2 basis-1/12 rounded-lg  object-cover rounded-t-lg  md:rounded-none md:rounded-s-lg h-[75px]"
         alt="book image"
       />
       <div className="basis-3/12 flex flex-col justify-between leading-normal">

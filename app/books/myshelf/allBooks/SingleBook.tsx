@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useState } from "react";
 import axios from "axios";
 import RemoveDropDown from "../removeDropDown";
+import Link from "next/link";
 
 interface bookProps {
   favorite: boolean;
@@ -53,11 +54,14 @@ const SingleBook = ({ favorite, book, removeFavorite, remove }: bookProps) => {
 
         <div className="text-center my-3 mx-auto flex flex-row gap-x-3 justify-center items-center">
           <p className="bg-[#42BB4E] h-[29px] text-white text-[13px] p-1 px-3 rounded-md">
-            completed
+            {book?.status}
           </p>
-          <button className="text-[#76453B] h-[29px] flex items-center border-2 border-[#76453B] hover:text-white hover:bg-[#76453B] focus:ring-2 focus:ring-[#B19470] text-[13px] p-1 px-4 rounded-md">
+          <Link
+            href={`/books/${book?.id}`}
+            className="text-[#76453B] h-[29px] flex items-center border-2 border-[#76453B] hover:text-white hover:bg-[#76453B] focus:ring-2 focus:ring-[#B19470] text-[13px] p-1 px-4 rounded-md"
+          >
             Details
-          </button>
+          </Link>
           <button
             onClick={async () => {
               if (liked) {

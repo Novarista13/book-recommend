@@ -3,17 +3,12 @@ import check from "../../../../public/check.svg";
 import cross from "../../../../public/cross.svg";
 import Image from "next/image";
 import AddList from "./AddList";
+import { book } from "@/types/bookTypes";
 
 const AboutBook = ({
   book,
 }: {
-  book: {
-    id: number;
-    title: string;
-    availability: string;
-    status: string;
-    author: { name: string };
-  };
+  book: book
 }) => {
   return (
     <div className="w-auto">
@@ -112,7 +107,7 @@ const AboutBook = ({
         <div className="flex flex-row gap-x-6">
           <div className="w-full  border border-[#F8FAE5] rounded-lg shadow  text-center py-2 p-4 flex flex-row items-center gap-x-3">
             <p className="text-[14px] text-[#F8FAE5]">Language: </p>
-            <p className="text-[15px] text-white font-medium">English</p>
+            <p className="text-[15px] text-white font-medium">{book?.lang}</p>
           </div>
           <button
             type="button"

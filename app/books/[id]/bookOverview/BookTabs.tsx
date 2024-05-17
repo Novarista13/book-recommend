@@ -1,8 +1,8 @@
 import { Tabs, TabItem } from "flowbite-react";
 import BookOverview from "./BookOverview";
-import Reviews from "../reviews/Reviews";
-import Lists from "../lists/Lists";
-import Books from "../relatedBooks/RelatedBooks";
+import Reviews from "./reviews/Reviews";
+import Lists from "./lists/Lists";
+import Books from "./relatedBooks/RelatedBooks";
 
 export default function BookTabs({
   book,
@@ -23,7 +23,7 @@ export default function BookTabs({
       component: <BookOverview book={book} />,
     },
     {
-      title: "4.1k Reviews",
+      title: "Reviews",
       isActive: false,
       component: <Reviews book={book} />,
     },

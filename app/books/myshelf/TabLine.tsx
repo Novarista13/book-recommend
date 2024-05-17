@@ -6,7 +6,7 @@ import Lists from "./lists/Lists";
 import Favorites from "./favorites/Favorites";
 import axios from "axios";
 import { useState, useEffect, useRef } from "react";
-import { useIsVisible } from "../[id]/reviews/Reviews";
+import { useIsVisible } from "../[id]/bookOverview/reviews/Reviews";
 import { bookType } from "@/types/bookTypes";
 
 export default function TabLine() {
